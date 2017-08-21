@@ -1,0 +1,27 @@
+# Do not use tab
+# Two space indent
+# One space after :
+# - is list
+# parent must be after child
+
+mapping:
+  #- class_student:
+  #    student:
+  #      _parent:
+  #        type: class
+  #      properties:
+  #        id:
+  #          type: integer
+  #        name:
+  #          type: text
+  #    class:
+  #      properties:
+  #        id:
+  #          type: integer
+  #        name:
+  #          type: text
+  - student_class:
+      student:
+        properties:
+          id:
+            type: integer
