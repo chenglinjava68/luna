@@ -10,7 +10,7 @@
  峰值并不是工作的常态，可能大多数情况下mysql有更新就可以及时的消费掉，当峰值到来时，应当感知到并且提高消费能力，如果能力依然不够，Kafka提供了消息积压的能力（理论上Kafka几乎可以无限积压消息，虽然可能很少这么做），峰值过后可以尽快消化掉积压。
 
 # Maxwell
-----------
+
 ## Download
 
     curl -sLo - https://github.com/zendesk/maxwell/releases/download/v1.10.6/maxwell-1.10.6.tar.gz \
@@ -65,8 +65,6 @@ Copy config.properties.example to config.properties and modify the following pro
     nohup bin/maxwell --user='maxwell' --password='XXXXXX' --host='127.0.0.1' &
     
 # Kafka
-
-----------
 
 ## download
 
@@ -131,15 +129,11 @@ Modify firewall (your OS may be different)
 
     bin/kafka-server-start.sh -daemon config/server.properties
     
-#Elasticsearch
-
-----------
+# Elasticsearch
 
 I think you should have your elasticsearch cluster. If not, learn and make one.
 
 # luna
-
-----------
 
 ## Download And Install
     git clone https://github.com/sanguinar/luna
