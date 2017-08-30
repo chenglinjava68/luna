@@ -43,24 +43,24 @@ Kafka作为一个分布式的消息队列中间件，支持多个生产源生产
 Copy config.properties.example to config.properties and modify the following properties
 
     producer=kafka
-	  log_level=INFO
-	  host='xxx.xxx.xxx.xxx'
-	  port=3306
-	  user='maxwell'
-	  password='xxxxxx'
-	  kafka.bootstrap.servers=k_host0:9092,k_host1:9092,k_host2:9092,k_host3:9092,k_host4:9092
-	  ### One table in one topic
-	  kafka_topic=maxwell_%{database}_%{table}
-	  kafka.batch.size=16384
-	  kafka.compression.type=snappy
-	  kafka.metadata.fetch.timeout.ms=5000
-	  kafka.retries=5
-	  ### default 1 get and ack;0 send and ack;all or -1 replica in ISR get ack
-	  kafka.acks=1
-	  kafka.request.timeout.ms=10000
-	  kafka.linger.ms=0
-	  ### One table in one partition
-	  producer_partition_by=table # [database, table, primary_key, column]
+    log_level=INFO
+    host='xxx.xxx.xxx.xxx'
+    port=3306
+    user='maxwell'
+    password='xxxxxx'
+    kafka.bootstrap.servers=k_host0:9092,k_host1:9092,k_host2:9092,k_host3:9092,k_host4:9092
+    ### One table in one topic
+    kafka_topic=maxwell_%{database}_%{table}
+    kafka.batch.size=16384
+    kafka.compression.type=snappy
+    kafka.metadata.fetch.timeout.ms=5000
+    kafka.retries=5
+    ### default 1 get and ack;0 send and ack;all or -1 replica in ISR get ack
+    kafka.acks=1
+    kafka.request.timeout.ms=10000
+    kafka.linger.ms=0
+    ### One table in one partition
+    producer_partition_by=table # [database, table, primary_key, column]
 
 ## Start maxwell
 
@@ -76,30 +76,30 @@ Better to download kafka_2.12-0.11.0.0 and newer version. Unzip and move to work
 
 Modify every zookeeper node
 
-	  dataDir=/tmp/zookeeper
-	  clientPort=2181
-	  initLimit=5
-	  syncLimit=2
-	  server.0=z_host0:2888:3888
-	  server.1=z_host1:2888:3888
-	  server.2=z_host2:2888:3888
-	  server.3=z_host3:2888:3888
+    dataDir=/tmp/zookeeper
+    clientPort=2181
+    initLimit=5
+    syncLimit=2
+    server.0=z_host0:2888:3888
+    server.1=z_host1:2888:3888
+    server.2=z_host2:2888:3888
+    server.3=z_host3:2888:3888
 	
 ## server.properties
 
 Modify every broker server.properties
 
-	  broker.id=0 # Every broker has unique id(1,2,3,4...).  
-	  delete.topic.enable=true    
-	  auto.create.topics.enable=false
-	  listeners=PLAINTEXT://host:9092 # host is your broker host 
-	  advertised.listeners=PLAINTEXT://host:9092 # host is your broker host
-	  log.dirs=/tmp/kafka-logs
-	  #z_host0 is your zookeeper host
-	  zookeeper.connect=z_host0:2181,z_host1:2181,z_host2:2181,z_host3:2181
-	  ### Avoid purgatory OOME 
-	  fetch.purgatory.purge.interval.requests: 100
-	  producer.purgatory.purge.interval.requests: 100
+    broker.id=0 # Every broker has unique id(1,2,3,4...).  
+    delete.topic.enable=true    
+    auto.create.topics.enable=false
+    listeners=PLAINTEXT://host:9092 # host is your broker host 
+    advertised.listeners=PLAINTEXT://host:9092 # host is your broker host
+    log.dirs=/tmp/kafka-logs
+    #z_host0 is your zookeeper host
+    zookeeper.connect=z_host0:2181,z_host1:2181,z_host2:2181,z_host3:2181
+    ### Avoid purgatory OOME 
+    fetch.purgatory.purge.interval.requests: 100
+    producer.purgatory.purge.interval.requests: 100
 
 ## Some work
 
