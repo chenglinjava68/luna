@@ -138,7 +138,7 @@ I think you should have your elasticsearch cluster. If not, learn and make one.
 ## Download And Install
     git clone https://github.com/sanguinar/luna
     cd luna
-    mvn package
+    mvn package # or not
 
 ## Config
 
