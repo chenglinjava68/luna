@@ -70,8 +70,7 @@ public class ElasticsearchFilter extends BaseFilter {
 			eshandler.update(((String) data.get("table")), ((String) data.get("table")),Objects.toString(((Map)data.get("data")).get("id"),""), (Map)data.get("data"));
 		}else {
 		}
-		logTime.info(""+data.get("table")+" "+((Map)data.get("data")).get("id")+" "+(TimeUtil.stringToLong((String)((Map)data.get("data")).get("modify_time"),"yyyy-MM-dd HH:mm:ss.SSS")+28800000)+" "+System.currentTimeMillis()+" "+(System.currentTimeMillis()-(TimeUtil.stringToLong((String)((Map)data.get("data")).get("modify_time"),"yyyy-MM-dd HH:mm:ss.SSS")+28800000)));
-		//logTime.info(""+data.get("table")+" "+((Map)data.get("data")).get("id")+" "+(System.currentTimeMillis()/1000-(Long)data.get("ts")));
+		logTime.info(""+data.get("table")+" "+((Map)data.get("data")).get("id")+" "+(System.currentTimeMillis()/1000-(Long)data.get("ts")));
 	}
 	
 	

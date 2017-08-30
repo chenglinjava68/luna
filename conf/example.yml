@@ -1,0 +1,20 @@
+NewKafka:
+  logger: kafka # log4j2.xml
+  topics:
+    - maxwell_tableName1
+    - maxwell_tableName2
+  threadnum: 4
+  bootstrap.servers: xxx.xxx.xxx.xxx:9092
+  group.id: maxwell_test
+  max.fetch.byte: 1048576
+  max.poll.records: 10000
+  bulk.edge: 10 # one poll() > bulk.edge will use ES bulk api
+  
+Elasticsearch:
+  logger: elasticsearch # log4j2.xml
+  hosts:
+    - xxx.xxx.xxx.xxx
+    - xxx.xxx.xxx.xxx
+  sniff: true
+  compress: false
+  cluster.name: elasticsearch-test # default elasticsearch

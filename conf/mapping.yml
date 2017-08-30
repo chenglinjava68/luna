@@ -1,0 +1,15 @@
+# Do not use tab
+# Two space indent
+# One space after :
+# - is list
+# parent must be after child
+mapping.settings:
+  index.shard.number: 25
+  index.replica.number: 2
+
+mapping:
+  - table:
+      table:
+        properties:
+          id:
+            type: integer

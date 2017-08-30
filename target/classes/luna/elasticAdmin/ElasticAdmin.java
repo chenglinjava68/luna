@@ -11,6 +11,7 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.common.settings.Settings.Builder;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
@@ -92,7 +93,14 @@ public class ElasticAdmin {
 			}
 		}
 	}
-	
+    
+    public void shutdown(){
+        if(client!=null){
+            client.close();
+            log.info("Client is closed!");
+        }
+    }
+
 	/**
 	 * 
 	* @Function: setIndex
@@ -111,11 +119,19 @@ public class ElasticAdmin {
 	*---------------------------------------------------------*
 	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
 	 */
-	public void setIndex(String index,String type,Map source){
+	public void setIndex(String index,String type,Map source,int shardNumber,int replicaNumber){
+        Builder builder=Settings.builder()
+            .put("index.number_of_shards",shardNumber)
+            .put("index.number_of_replicas",replicaNumber);
 		if(!client.admin().indices().prepareExists(index).get().isExists()){
-			client.admin().indices().prepareCreate(index).get();
+			client.admin().indices().prepareCreate(index)
+            .setSettings(builder)
+            .get();
 		}
-		PutMappingResponse response=client.admin().indices().preparePutMapping(index).setType(type).setSource(source).get();
+		PutMappingResponse response=client.admin().indices().preparePutMapping(index)
+            .setType(type)
+            .setSource(source)
+            .get();
 		log.info(response);
 	}
 	

@@ -22,7 +22,7 @@ import luna.input.KafkaInput;
  */
 public class App {
 	public static void main( String[] args ){
-		KafkaInput kafka =new KafkaInput("src/main/java/conf/example.yml");
+		KafkaInput kafka =new KafkaInput("conf/example.yml");
 		kafka.excute();
 	}
 }
