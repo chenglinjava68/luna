@@ -8,8 +8,188 @@ mapping.settings:
   index.replica.number: 2
 
 mapping:
-  - table:
-      table:
+#  - xes_student_courses:
+#      study:
+#        dynamic: strict
+#        properties:
+#          id:
+#            type: integer
+#          stu_id:
+#            type: integer
+#          uid:
+#            type: integer
+#          order_id:
+#            type: integer
+#          order_num:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          product_id:
+#            type: integer
+#          course_id:
+#            type: integer
+#          course_name:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          category:
+#            type: integer
+#          outline_ids:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          subject_ids:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          start_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          end_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          current_lastend_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          sys_delay_day:
+#            type: integer
+#          real_price:
+#            type: keyword
+#            null_value: 0.00
+#            ignore_above: 256
+#            store: true
+#          return_type:
+#            type: integer
+#          create_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          modify_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#  - xes_student_live_classes:
+#      study:
+#        dynamic: strict
+#        properties:
+#          id:
+#            type: integer
+#          stu_cou_id:
+#            type: integer
+#          stu_id:
+#            type: integer
+#          uid:
+#            type: integer
+#          outline_ids:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          course_id:
+#            type: integer
+#          class_id:
+#            type: integer
+#          team_id:
+#            type: integer
+#          is_del:
+#            type: integer
+#          create_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          modify_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#  - xes_student_live_op_logs:
+#      study:
+#        dynamic: strict
+#        properties:
+#          id:
+#            type: integer
+#          stu_id:
+#            type: integer
+#          stu_cou_id:
+#            type: integer
+#          content:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          controller:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          action:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          remark:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+#          creater_id:
+#            type: integer
+#          create_time:
+#            type: keyword
+#            null_value: ""
+#            ignore_above: 256
+#            store: true
+  - xes_student_live_plans:
+      study:
+        dynamic: strict
         properties:
           id:
             type: integer
+          stu_id:
+            type: integer
+          uid:
+            type: integer
+          stu_cou_id:
+            type: integer
+          course_id:
+            type: integer
+          outline_id:
+            type: integer
+          catalog_id:
+            type: integer
+          plan_id:
+            type: integer
+          tem_plan_id:
+            type: integer
+          price:
+            type: keyword
+            null_value: 0.00
+            ignore_above: 256
+            store: true
+          is_buy:
+            type: integer
+          is_del:
+            type: integer
+          create_time:
+            type: keyword
+            null_value: ""
+            ignore_above: 256
+            store: true
+          modify_time:
+            type: keyword
+            null_value: ""
+            ignore_above: 256
+            store: true

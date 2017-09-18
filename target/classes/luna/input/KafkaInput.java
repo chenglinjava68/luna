@@ -268,10 +268,11 @@ public class KafkaInput extends BaseInput{
 				ConsumerRecords<String, String> records;
 				while (true) {
 					records = consumer.poll(Long.MAX_VALUE);
+					System.out.println(records);
 					if(records.count()<bulkEdge){
 						for (ConsumerRecord<String, String> record : records) {
-							log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 							try {
+								log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 								esfilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -281,8 +282,8 @@ public class KafkaInput extends BaseInput{
 					}else{
 						bulkEsFilter.prepare();
 						for (ConsumerRecord<String, String> record : records) {
-							log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 							try {
+								log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 								bulkEsFilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
 							} catch (Exception e) {
 								e.printStackTrace();

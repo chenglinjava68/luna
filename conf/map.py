@@ -31,19 +31,21 @@ if db_db == 'all':
         cursor.execute(sql)
         databases = cursor.fetchall()
         for database in databases:
-            sql = "show tables;"
+            sql = "use"+database+ ";show tables;"
             cursor.execute(sql)
             tables = cursor.fetchall()
             with open("mapping.yml","ab") as f:
                 f.write("\nmapping:\n")
                 for table in tables:
-                    f.write("  - "+table[0]+":\n      "+table[0]+":\n")
+                    f.write("  - "+table[0]+":\n      "+database+":\n")
+                    f.write("        dynamic: strict\n")
                     f.write("        properties:\n")
                     cursor.execute("DESC "+table[0]+";")
                     results = cursor.fetchall()
                     for row in results:
                         name = row[0]
                         type = row[1]
+                        default = row[4]
                         type = type.split('(')[0]
                         f.write("          "+row[0]+":\n")
                         if type=="int" or type=="tinyint" or type=="smallint" or type=="mediumint" :
@@ -52,6 +54,11 @@ if db_db == 'all':
                             f.write("            type: double\n")
                         else:
                             f.write("            type: keyword\n")
+                            if default is None or default is "" or default == "0000-00-00 00:00:00" or default == "0000-00-00":
+                                f.write('            null_value: "'+'"\n')
+                            else:
+                                f.write("            null_value: "+default+"\n")
+                            f.write("            ignore_above: 256\n")
                             f.write("            store: true\n")
             f.close()
     except BaseException,e:
@@ -68,13 +75,15 @@ else:
             with open("mapping.yml","ab") as f:
                 f.write("\nmapping:\n")
                 for table in tables:
-                    f.write("  - "+table[0]+":\n      "+table[0]+":\n")
+                    f.write("  - "+table[0]+":\n      "+db_db+":\n")
+                    f.write("        dynamic: strict\n")
                     f.write("        properties:\n")
                     cursor.execute("DESC "+table[0]+";")
                     results = cursor.fetchall()
                     for row in results:
                         name = row[0]
                         type = row[1]
+                        default = row[4]
                         type = type.split('(')[0]
                         f.write("          "+row[0]+":\n")
                         if type=="int" or type=="tinyint" or type=="smallint" or type=="mediumint" :
@@ -83,6 +92,11 @@ else:
                             f.write("            type: double\n")
                         else:
                             f.write("            type: keyword\n")
+                            if default is None or default is "" or default == "0000-00-00 00:00:00" or default == "0000-00-00":
+                                f.write('            null_value: "'+'"\n')
+                            else:
+                                f.write("            null_value: "+default+"\n")
+                            f.write("            ignore_above: 256\n")
                             f.write("            store: true\n")
                 f.close()
         except BaseException,e:
@@ -93,13 +107,15 @@ else:
         with open("mapping.yml","ab") as f:
             f.write("\nmapping:\n")
             for table in tables:
-               f.write("  - "+table[0]+":\n      "+table[0]+":\n")
+               f.write("  - "+table+":\n      "+db_db+":\n")
+               f.write("        dynamic: strict\n")
                f.write("        properties:\n")
-               cursor.execute("DESC "+table[0]+";")
+               cursor.execute("DESC "+table+";")
                results = cursor.fetchall()
                for row in results:
                    name = row[0]
                    type = row[1]
+                   default = row[4]
                    type = type.split('(')[0]
                    f.write("          "+row[0]+":\n")
                    if type=="int" or type=="tinyint" or type=="smallint" or type=="mediumint" :
@@ -108,6 +124,11 @@ else:
                        f.write("            type: double\n")
                    else:
                        f.write("            type: keyword\n")
+                       if default is None or default is "" or default == "0000-00-00 00:00:00" or default == "0000-00-00":
+                           f.write('            null_value: "'+'"\n')
+                       else:
+                           f.write("            null_value: "+default+"\n")
+                       f.write("            ignore_above: 256\n")
                        f.write("            store: true\n")
         f.close()           
     db.close()

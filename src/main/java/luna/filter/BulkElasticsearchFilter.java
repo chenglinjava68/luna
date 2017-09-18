@@ -109,11 +109,11 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 	public void filter(Map<String, Object>data){
 		logTime.info((Long) data.get("ts"));
 		if(((String) data.get("type")).contentEquals("insert")){
-			eshandler.index(((String) data.get("table")), ((String) data.get("table")),Objects.toString(((Map)data.get("data")).get("id"),""),(Map)data.get("data"));
+			eshandler.index(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""),(Map)data.get("data"));
 		}else if(((String) data.get("type")).contentEquals("delete")){
-			eshandler.delete(((String) data.get("table")), ((String) data.get("table")),Objects.toString(((Map)data.get("data")).get("id"),""));
+			eshandler.delete(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""));
 		}else if(((String) data.get("type")).contentEquals("update")){
-			eshandler.update(((String) data.get("table")), ((String) data.get("table")),Objects.toString(((Map)data.get("data")).get("id"),""),(Map)data.get("data"));
+			eshandler.update(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""),(Map)data.get("data"));
 		}else {
 		}
 	}
