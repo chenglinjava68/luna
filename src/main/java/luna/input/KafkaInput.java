@@ -50,23 +50,13 @@ public class KafkaInput extends BaseInput{
 	private int numConsumers;				//consumer thread number
 	private String maxFetchByte;			//A poll max fetch byte
 	private int maxPollRecords;				//A poll max poll record number
-	private int bulkEdge;					//Which record number edge to use Elasticsearch bulk
+	private int bulkEdge;					//The record number edge to use Elasticsearch bulk
 	private Logger log;						
 	private List<ConsumerLoop> consumers;
 	private final ElasticsearchFilter esfilter;
 	private final BulkElasticsearchFilter bulkEsFilter;
 	private final  Map inputConfigs;		//config map from example.yml
 
-	/**
-	 * 
-	* @Function: KafkaInput
-	* @Description: Constructor
-	*
-	* @param: configFile: config file_name string
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午6:35:30
-	 */
 	public KafkaInput(String configFile) {
 		Map configs=null;
 		try {
@@ -82,28 +72,10 @@ public class KafkaInput extends BaseInput{
 		prepare();
 	}
 
-	/**
-	 * 
-	* @Function: prepare
-	* @Description: Initialize some properties and log
-	*
-	* @param: void
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午6:43:53 
-	*
-	* Modification History:
-	* Date         Author          Version            Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0                                               添加注释
-	 */
+	/*init log and properties*/
 	public void prepare() {
 		BasicConfigurator.configure();
 		log=LogManager.getLogger((String)inputConfigs.get("logger"));
-		
 		numConsumers = (Integer)inputConfigs.get("threadnum");
 		groupId = (String)inputConfigs.get("group.id");
 		topics=(List<String>) inputConfigs.get("topics");
@@ -119,29 +91,13 @@ public class KafkaInput extends BaseInput{
 		props.put("max.poll.records",maxPollRecords);
 		consumers = new ArrayList<ConsumerLoop>();
 	}
-	
-	/**
-	 * 
-	* @Function: excute
-	* @Description: New thread pool and assign consumer thread for topic
-	*
-	* @param: void
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午6:45:43 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				修改原因
-	 */
+
 	public void excute() {
 		executor = Executors.newFixedThreadPool(numConsumers);
 		int topicNum = topics.size();
 		log.info("threadnum: "+numConsumers+" and topicnum: "+ topicNum);
+
+		//assign consumer thread for topic
 		for (int i = 0; i < numConsumers; i++) {
 			for(int j=0;j<topicNum;j++){
 				if(j%numConsumers==i){
@@ -168,25 +124,7 @@ public class KafkaInput extends BaseInput{
 			}
 		});
 	}
-	
-	/**
-	 * 
-	* @Function: shutdown
-	* @Description: Shutdown kafka client
-	*
-	* @param: void
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午6:53:55 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void shutdown() {
         consumers.forEach(consumerThread -> consumerThread.shutdown());
         executor.shutdown();
@@ -198,60 +136,15 @@ public class KafkaInput extends BaseInput{
         }
     }
 
-	/**
-	 * 
-	* Copyright: Copyright (c) 2017 XueErSi
-	* 
-	* @ClassName: KafkaInput.java
-	* @Description: Consumer thread. Poll messages and emit to elasticsearch. 
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午6:54:41 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
 	public class ConsumerLoop implements Runnable {
 		private final KafkaConsumer<String, String> consumer;
 		private final List<String> topics;
-		
-		/**
-		 * 
-		* @Function: ConsumerLoop
-		* @Description: Constructor
-		*
-		* @param: props: kafka properties; topics: topic list
-		* @version: v1.0.0
-		* @author: GaoXing Chen
-		* @date: 2017年8月21日 下午6:57:25
-		 */
+
 		public ConsumerLoop(Properties props, List<String> topics) {
 			this.topics = topics;
 			this.consumer = new KafkaConsumer<String, String>(props);
 		}
-		
-		/**
-		 * 
-		* @see java.lang.Runnable#run()  
-		* @Function: run
-		* @Description: Poll messages and emit to elasticsearch. If poll size > bulkEdge bulk emit to elasticsearch, else emit one by one. 
-		*
-		* @param: void
-		* @return: void
-		* @throws: void
-		*
-		* @version: v1.0.0
-		* @author: GaoXing Chen
-		* @date: 2017年8月21日 下午7:00:09 
-		*
-		* Modification History:
-		* Date         Author          Version			Description
-		*---------------------------------------------------------*
-		* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释               
-		 */
+
 		public void run() {
 			try {
 				consumer.subscribe(topics,new ConsumerRebalanceListener() {
@@ -306,6 +199,4 @@ public class KafkaInput extends BaseInput{
 		}
 
 	}
-
-
 }
