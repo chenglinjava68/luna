@@ -73,7 +73,7 @@ public class KafkaInput extends BaseInput{
 	}
 
 	/*init log and properties*/
-	public void prepare() {
+	private void prepare() {
 		BasicConfigurator.configure();
 		log=LogManager.getLogger((String)inputConfigs.get("logger"));
 		numConsumers = (Integer)inputConfigs.get("threadnum");
