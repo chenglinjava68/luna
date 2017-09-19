@@ -15,8 +15,7 @@ Kafka作为一个分布式的消息队列中间件，支持多个生产源生产
 
 ## Download
 
-    curl -sLo - https://github.com/zendesk/maxwell/releases/download/v1.10.6/maxwell-1.10.6.tar.gz \
-       | tar zxvf -
+    curl -sLo - https://github.com/zendesk/maxwell/releases/download/v1.10.6/maxwell-1.10.6.tar.gz | tar zxvf -
     mv maxwell-1.10.6 /home/maxwell
     cd maxwell
     
