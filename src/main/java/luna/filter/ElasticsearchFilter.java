@@ -24,12 +24,12 @@ public class ElasticsearchFilter extends BaseFilter {
 	private final ElasticsearchOutput eshandler;
 
 	public ElasticsearchFilter(Map config){
-	    super();
+	        super();
 		eshandler=new ElasticsearchOutput(config);
 	}
 
 	public void filter(Map<String, Object>data){
-	    super.filter(data);
+	        super.filter(data);
 		if(type.contentEquals("insert")){
 			eshandler.index(table, database,id,payload);
 		}else if(type.contentEquals("delete")){

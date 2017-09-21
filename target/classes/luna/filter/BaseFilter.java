@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class BaseFilter {
     protected Logger logTime;
@@ -27,14 +28,14 @@ public class BaseFilter {
         type = (String) data.get("type");
         ts = (Long)data.get("ts");
         database = (String)data.get("database")+"_test";
-        table = (String)data.get(table);
-        id = (String)payload.get("id");
+        table = (String)data.get("table");
+        id =  Objects.toString(payload.get("id"),"");
     }
 
     public void getCleanPayload(Map<String,Object>data){
         Map <String, Object> sourcePayload = (Map<String,Object>)data.get("data");
         payload.clear();
-        data.forEach((key,value)->{
+        sourcePayload.forEach((key,value)->{
             if(value instanceof String){
                 payload.put(key, StringUtil.stripEscape(StringUtil.stripControl((String)value)));
             }else{

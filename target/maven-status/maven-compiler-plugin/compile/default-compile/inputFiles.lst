@@ -8,6 +8,7 @@
 /home/luna/src/main/java/luna/filter/BaseFilter.java
 /home/luna/src/main/java/luna/input/KafkaInput.java
 /home/luna/src/main/java/luna/filter/BulkElasticsearchFilter.java
+/home/luna/src/main/java/luna/util/StringUtil.java
 /home/luna/src/main/java/luna/app/AdminApp.java
 /home/luna/src/main/java/luna/app/App.java
 /home/luna/src/main/java/luna/exception/ESException.java

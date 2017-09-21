@@ -166,9 +166,8 @@ public class KafkaInput extends BaseInput{
 								log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 								esfilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
 							} catch (Exception e) {
-							    e.printStackTrace();
 								log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                consumer.close();
+                                                                Thread.currentThread().interrupt();
 							}
 						}
 					}else{
@@ -178,9 +177,8 @@ public class KafkaInput extends BaseInput{
 								log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 								bulkEsFilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
 							} catch (Exception e) {
-							    e.printStackTrace();
-                                log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                consumer.close();
+                                                                log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
+                                                                Thread.currentThread().interrupt();
 							}
 						}
 						bulkEsFilter.emit();
