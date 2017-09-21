@@ -1,13 +1,17 @@
 NewKafka:
   logger: kafka # log4j2.xml
   topics:
-    - study_xes_student_courses
-    - study_xes_student_live_classes
-    - study_xes_student_live_op_logs
-    - study_xes_student_live_plans
+    #- study_xes_student_courses
+    #- study_xes_student_live_classes
+    #- study_xes_student_live_op_logs
+    #- study_xes_student_live_plans
+    - study_test_xes_student_courses
+    - study_test_xes_student_live_classes
+    - study_test_xes_student_live_op_logs
+    - study_test_xes_student_live_plans
   threadnum: 4
   bootstrap.servers: 10.97.14.67:9092
-  group.id: xes_dev_study
+  group.id: xes_dev_study_test
   max.fetch.byte: 1048576
   max.poll.records: 10000
   bulk.edge: 10 # one poll() > bulk.edge will use ES bulk api

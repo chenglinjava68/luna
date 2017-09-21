@@ -1,3 +1,4 @@
+luna/util/StringUtil.class
 luna/util/TimeUtil.class
 luna/filter/BulkElasticsearchFilter.class
 luna/output/BulkElasticsearchOutput.class

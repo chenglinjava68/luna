@@ -66,13 +66,25 @@ public class ElasticAdmin {
 		}
 	}
     
-    public void shutdown(){
-        if(client!=null){
-            client.close();
-            log.info("Client is closed!");
+        public void shutdown(){
+            if(client!=null){
+                client.close();
+                log.info("Client is closed!");
+            }
         }
-    }
+        
+        public void setIndex(String index,String type,Map source){
+            if(!client.admin().indices().prepareExists(index).get().isExists()){
+                client.admin().indices().prepareCreate(index).get();
+            }
+            PutMappingResponse response=client.admin().indices().preparePutMapping(index)
+                                              .setType(type)
+                                              .setSource(source)
+                                              .get();
+            log.info(response);
+        }
 
+        
 	public void setIndex(String index,String type,Map source,int shardNumber,int replicaNumber){
         Builder builder=Settings.builder()
             .put("index.number_of_shards",shardNumber)

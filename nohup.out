@@ -613,3 +613,601 @@ org.apache.kafka.clients.consumer.ConsumerRecords@73abf44b
 19:03:46.407 [pool-2-thread-3] INFO  kafka - Thread-50: ConsumerRecord(topic = study_xes_student_live_op_logs, partition = 0, offset = 3, CreateTime = -1, serialized key size = 69, serialized value size = 395, headers = RecordHeaders(headers = [], isReadOnly = false), key = {"database":"study","table":"xes_student_live_op_logs","pk.id":11084}, value = {"database":"study","table":"xes_student_live_op_logs","type":"delete","ts":1505385775,"xid":72921467,"commit":true,"data":{"id":11084,"stu_id":11020,"stu_cou_id":4019020,"content":"{\"plan_id_from\":\"14917\",\"plan_id_to\":\"14935\"}","controller":"App\\Component\\StuCourse\\StuCourse","action":"changeStuLivePlan","remark":"调场次","creater_id":11020,"create_time":"2017-09-05 17:56:39"}})
 19:03:46.453 [pool-2-thread-3] INFO  elasticsearch - DeleteResponse[index=xes_student_live_op_logs,type=study,id=11084,version=2,result=deleted,shards=ShardInfo{total=3, successful=3, failures=[]}]
 19:03:46.453 [pool-2-thread-3] INFO  time - xes_student_live_op_logs 11084 1251
+16:47:08.151 [main] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+16:47:08.154 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+16:47:08.155 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+16:47:08.155 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+16:47:08.155 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty3Plugin]
+16:47:08.155 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+16:47:09.212 [elasticsearch[_client_][management][T#1]] WARN  io.netty.util.internal.MacAddressUtil - Failed to find a usable hardware address from the network interfaces; using random bytes: 2d:21:f6:ef:60:ae:bc:66
+16:47:09.598 [main] INFO  elasticsearch - Get client!
+16:47:09.601 [main] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+16:47:09.601 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+16:47:09.601 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+16:47:09.601 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+16:47:09.601 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty3Plugin]
+16:47:09.601 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+16:47:09.674 [main] INFO  elasticsearch - Get client!
+16:47:09.676 [main] INFO  kafka - threadnum: 4 and topicnum: 4
+16:47:09.699 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+16:47:09.743 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+16:47:09.744 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+16:47:09.861 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+16:47:09.861 [pool-2-thread-1] INFO  kafka - Thread-49 Get kafka client!
+16:47:09.865 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+16:47:09.865 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+16:47:09.866 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+16:47:09.866 [pool-2-thread-2] INFO  kafka - Thread-50 Get kafka client!
+16:47:09.870 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+16:47:09.870 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+16:47:09.871 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+16:47:09.872 [pool-2-thread-3] INFO  kafka - Thread-51 Get kafka client!
+16:47:09.876 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+16:47:09.876 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+16:47:09.877 [pool-2-thread-4] INFO  kafka - Thread-52 Get kafka client!
+16:47:09.936 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+16:47:09.936 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+16:47:09.936 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+16:47:09.938 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+16:47:09.938 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+16:47:09.938 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+16:47:09.938 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+16:47:09.938 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+16:47:09.939 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+16:47:09.939 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+16:47:09.940 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+16:47:09.940 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+16:47:09.952 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+16:47:09.958 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+16:47:09.965 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 4
+16:47:09.965 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 4
+16:47:09.965 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 4
+16:47:09.965 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 4
+16:47:09.966 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_op_logs-0] for group xes_dev_study_test
+16:47:09.966 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_courses-0] for group xes_dev_study_test
+16:47:09.967 [pool-2-thread-3] INFO  kafka - Rebalance happened study_test_xes_student_live_op_logs:0
+16:47:09.967 [pool-2-thread-1] INFO  kafka - Rebalance happened study_test_xes_student_courses:0
+16:47:09.967 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_plans-0] for group xes_dev_study_test
+16:47:09.967 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_classes-0] for group xes_dev_study_test
+16:47:09.967 [pool-2-thread-2] INFO  kafka - Rebalance happened study_test_xes_student_live_classes:0
+16:47:09.967 [pool-2-thread-4] INFO  kafka - Rebalance happened study_test_xes_student_live_plans:0
+17:19:07.787 [main] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+17:19:07.790 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+17:19:07.790 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+17:19:07.790 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+17:19:07.790 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty3Plugin]
+17:19:07.790 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+17:19:08.774 [elasticsearch[_client_][management][T#1]] WARN  io.netty.util.internal.MacAddressUtil - Failed to find a usable hardware address from the network interfaces; using random bytes: 17:58:cf:a7:5b:77:4c:61
+17:19:09.086 [main] INFO  elasticsearch - Get client!
+17:19:09.089 [main] INFO  org.elasticsearch.plugins.PluginsService - no modules loaded
+17:19:09.089 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.index.reindex.ReindexPlugin]
+17:19:09.089 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.percolator.PercolatorPlugin]
+17:19:09.089 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.script.mustache.MustachePlugin]
+17:19:09.089 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty3Plugin]
+17:19:09.089 [main] INFO  org.elasticsearch.plugins.PluginsService - loaded plugin [org.elasticsearch.transport.Netty4Plugin]
+17:19:09.168 [main] INFO  elasticsearch - Get client!
+17:19:09.169 [main] INFO  kafka - threadnum: 4 and topicnum: 4
+17:19:09.196 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+17:19:09.246 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+17:19:09.246 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+17:19:09.249 [pool-2-thread-1] INFO  kafka - Thread-50 Get kafka client!
+17:19:09.252 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+17:19:09.259 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+17:19:09.259 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+17:19:09.260 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+17:19:09.262 [pool-2-thread-2] INFO  kafka - Thread-51 Get kafka client!
+17:19:09.264 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+17:19:09.264 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+17:19:09.265 [main] INFO  org.apache.kafka.clients.consumer.ConsumerConfig - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [10.97.14.67:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = xes_dev_study_test
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 10000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+
+17:19:09.267 [pool-2-thread-3] INFO  kafka - Thread-52 Get kafka client!
+17:19:09.268 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka version : 0.11.0.0
+17:19:09.268 [main] INFO  org.apache.kafka.common.utils.AppInfoParser - Kafka commitId : cb8625948210849f
+17:19:09.269 [pool-2-thread-4] INFO  kafka - Thread-53 Get kafka client!
+17:19:09.341 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+17:19:09.341 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+17:19:09.342 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+17:19:09.342 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Discovered coordinator 10.97.14.68:9092 (id: 2147483646 rack: null) for group xes_dev_study_test.
+17:19:09.344 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+17:19:09.344 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+17:19:09.344 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:19:09.344 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:19:09.344 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+17:19:09.344 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:19:09.348 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [] for group xes_dev_study_test
+17:19:09.348 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:19:09.354 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:19:09.359 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:19:09.364 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 7
+17:19:09.364 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 7
+17:19:09.364 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 7
+17:19:09.365 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_op_logs-0] for group xes_dev_study_test
+17:19:09.365 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_plans-0] for group xes_dev_study_test
+17:19:09.365 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_classes-0] for group xes_dev_study_test
+17:19:09.365 [pool-2-thread-2] INFO  kafka - Rebalance happened study_test_xes_student_live_classes:0
+17:19:09.366 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 7
+17:19:09.366 [pool-2-thread-1] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_courses-0] for group xes_dev_study_test
+17:19:09.366 [pool-2-thread-1] INFO  kafka - Rebalance happened study_test_xes_student_courses:0
+17:19:09.365 [pool-2-thread-4] INFO  kafka - Rebalance happened study_test_xes_student_live_plans:0
+17:19:09.367 [pool-2-thread-3] INFO  kafka - Rebalance happened study_test_xes_student_live_op_logs:0
+17:20:57.190 [pool-2-thread-1] INFO  kafka - Thread-50: ConsumerRecord(topic = study_test_xes_student_courses, partition = 0, offset = 0, CreateTime = -1, serialized key size = 60, serialized value size = 531, headers = RecordHeaders(headers = [], isReadOnly = false), key = {"database":"study","table":"xes_student_courses","pk.id":1}, value = {"database":"study","table":"xes_student_courses","type":"insert","ts":1505985630,"xid":48004,"commit":true,"data":{"id":1,"stu_id":10016,"uid":10016,"order_num":"201601140650426436","product_id":0,"course_id":36472,"course_name":"14号内部测！试用直播课程","category":7,"outline_ids":"2","subject_ids":"2","start_time":"2016-01-14","end_time":"2016-01-31","current_lastend_time":"2016-01-31","sys_delay_day":0,"real_price":1000.00,"return_type":2,"create_time":"2016-01-14 06:50:36","modify_time":"2017-09-05 15:26:31"}})
+17:20:57.199 [pool-2-thread-1] ERROR kafka - Thread 50: java.lang.NullPointerException
+17:20:57.206 [pool-2-thread-1] INFO  kafka - Consumer Thread 50is closed!
+17:20:57.482 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [study_test_xes_student_live_plans-0] for group xes_dev_study_test
+17:20:57.482 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:20:57.482 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [study_test_xes_student_live_classes-0] for group xes_dev_study_test
+17:20:57.483 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:20:57.484 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Revoking previously assigned partitions [study_test_xes_student_live_op_logs-0] for group xes_dev_study_test
+17:20:57.485 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - (Re-)joining group xes_dev_study_test
+17:20:57.838 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 8
+17:20:57.838 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 8
+17:20:57.838 [pool-2-thread-3] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_op_logs-0] for group xes_dev_study_test
+17:20:57.838 [pool-2-thread-2] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_classes-0] for group xes_dev_study_test
+17:20:57.839 [pool-2-thread-2] INFO  kafka - Rebalance happened study_test_xes_student_live_classes:0
+17:20:57.839 [pool-2-thread-3] INFO  kafka - Rebalance happened study_test_xes_student_live_op_logs:0
+17:20:57.839 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.AbstractCoordinator - Successfully joined group xes_dev_study_test with generation 8
+17:20:57.839 [pool-2-thread-4] INFO  org.apache.kafka.clients.consumer.internals.ConsumerCoordinator - Setting newly assigned partitions [study_test_xes_student_live_plans-0] for group xes_dev_study_test
+17:20:57.840 [pool-2-thread-4] INFO  kafka - Rebalance happened study_test_xes_student_live_plans:0
