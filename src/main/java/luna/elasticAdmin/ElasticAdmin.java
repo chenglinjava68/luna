@@ -43,7 +43,7 @@ public class ElasticAdmin {
 		prepare();
 	}
 
-	public void prepare(){
+	private void prepare(){
 		BasicConfigurator.configure();
 		log=LogManager.getLogger("esAdmin");
 		log=LogManager.getLogger((String)outputConfig.get("logger"));

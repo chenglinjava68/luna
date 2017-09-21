@@ -47,41 +47,13 @@ public class ElasticsearchOutput extends BaseOutput{
 	private Logger logTime;
 	private final Map outputConfig;
 
-	/**
-	 * 
-	* @Function: ElasticsearchOutput
-	* @Description: Constructor
-	*
-	* @param: config: Elasticsearch config
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午8:14:54
-	 */
     public ElasticsearchOutput(Map config){
 	outputConfig=config;
     	hosts=new ArrayList<String>();
     	prepare();
     }
-	
-    /**
-     * 
-    * @Function: prepare
-    * @Description: Initialize some properties.
-    *
-    * @param: void
-    * @return: void
-    * @throws: void
-    *
-    * @version: v1.0.0
-    * @author: GaoXing Chen
-    * @date: 2017年8月21日 下午8:15:17 
-    *
-    * Modification History:
-    * Date         Author          Version			Description
-    *---------------------------------------------------------*
-    * 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-     */
-	public void prepare(){
+
+	private void prepare(){
 		BasicConfigurator.configure();
 		log=LogManager.getLogger((String)outputConfig.get("logger"));
 		logTime=LogManager.getLogger("time");
@@ -107,119 +79,29 @@ public class ElasticsearchOutput extends BaseOutput{
 			}
 		}
 	}	
-	
-	/**
-	 * 
-	* @Function: shutdown
-	* @Description: Shutdown Elasticsearch 
-	*
-	* @param: void
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午8:16:04 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void shutdown(){
 		if(client!=null){
 			client.close();
 			log.info("Client is closed !");
 		}
 	}
-	
-	/**
-	 * 
-	* @Function: ElasticsearchOutput.java
-	* @Description: index doc
-	*
-	* @param: skip
-	* @return：
-	* @throws：异常描述
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午6:38:04 
-	*
-	* Modification History:
-	* Date         Author          Version            Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0                                              添加注释
-	 */
+
 	public void index(String index,String type,String id,final Map data){
 		IndexResponse response=client.prepareIndex(index,type,id).setSource(data).get();
 		log.info(response);
 	}
-	
-	/**
-	 * 
-	* @Function: delete
-	* @Description: delete doc
-	*
-	* @param: skip
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午8:17:03 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void delete(String index,String type,String id){
 		DeleteResponse response = client.prepareDelete(index, type, id).get();
 		log.info(response);
 	}
-	
-	/**
-	 * 
-	* @Function: ElasticsearchOutput.java
-	* @Description: update doc
-	*
-	* @param: skip
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午8:17:27 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void update(String index,String type,String id,final Map data){
 		UpdateResponse response=client.prepareUpdate(index,type,id).setDoc(data).get();
 		log.info(response);
 	}
-	
-	/**
-	 * 
-	* @Function: search
-	* @Description: search doc
-	*
-	* @param: skip
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午8:17:42 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void search(String index,String type,String id){
 		QueryBuilder queryBuilder = QueryBuilders  
 				.disMaxQuery()  
@@ -230,48 +112,12 @@ public class ElasticsearchOutput extends BaseOutput{
 	}
 	
 	/**********************************parent child************************************/	
-	
-	/**
-	 * 
-	* @Function: indexAndAddParent
-	* @Description: Index child with parent
-	*
-	* @param: skip
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午8:19:11 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void indexAndAddParent(String index,String type,String id,String parentId,final Map data){
 		IndexResponse response=client.prepareIndex(index, type,id).setParent(parentId).setSource(data).get();
 		log.info(response);
 	}
-	
-	/**
-	 * 
-	* @Function: deleteWithParent
-	* @Description: Delete child with parent
-	*
-	* @param: skip
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午8:19:52 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void deleteWithParent(String index,String type,String id,String pid){
 		DeleteResponse response = client.prepareDelete(index, type, id).setParent(pid).get();
 		log.info(response);

@@ -34,16 +34,20 @@ public class ElasticsearchFilter extends BaseFilter {
 	}
 
 	public void filter(Map<String, Object>data){
+        Map<String,String> payload = getCleanPayload(data);
 		if(((String) data.get("type")).contentEquals("insert")){
-			eshandler.index(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""),(Map)data.get("data"));
+			eshandler.index(((String) data.get("table")), ((String) data.get("database")),
+                    Objects.toString(((Map)data.get("data")).get("id"),""),payload);
 		}else if(((String) data.get("type")).contentEquals("delete")){
-			eshandler.delete(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""));
+			eshandler.delete(((String) data.get("table")), ((String) data.get("database")),
+                    Objects.toString(((Map)data.get("data")).get("id"),""));
 		}else if(((String) data.get("type")).contentEquals("update")){
-			eshandler.update(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""), (Map)data.get("data"));
-		}else {
+			eshandler.update(((String) data.get("table")), ((String) data.get("database")),
+                    Objects.toString(((Map)data.get("data")).get("id"),""),payload);
 		}
 		//count time difference
-		logTime.info(""+data.get("table")+" "+((Map)data.get("data")).get("id")+" "+(System.currentTimeMillis()/1000-(Long)data.get("ts")));
+		logTime.info(""+data.get("table")+" "+((Map)data.get("data")).get("id")+" "+
+                (System.currentTimeMillis()/1000-(Long)data.get("ts")));
 	}
 	
 	

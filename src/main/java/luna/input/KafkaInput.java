@@ -56,6 +56,7 @@ public class KafkaInput extends BaseInput{
 	private final ElasticsearchFilter esfilter;
 	private final BulkElasticsearchFilter bulkEsFilter;
 	private final  Map inputConfigs;		//config map from example.yml
+    private final Map outputConfigs;
 
 	public KafkaInput(String configFile) {
 		Map configs=null;
@@ -66,7 +67,7 @@ public class KafkaInput extends BaseInput{
 			log.error(e);
 		}
 		inputConfigs = (Map) configs.get("NewKafka");
-		final  Map outputConfigs = (Map) configs.get("Elasticsearch");
+		outputConfigs = (Map) configs.get("Elasticsearch");
 		esfilter=new ElasticsearchFilter(outputConfigs);
 		bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
 		prepare();
@@ -89,7 +90,7 @@ public class KafkaInput extends BaseInput{
 		props.put("value.deserializer", StringDeserializer.class.getName());
 		props.put("max.partition.fetch.bytes",maxFetchByte);
 		props.put("max.poll.records",maxPollRecords);
-		consumers = new ArrayList<ConsumerLoop>();
+		consumers = new ArrayList<>();
 	}
 
 	public void excute() {
@@ -108,9 +109,7 @@ public class KafkaInput extends BaseInput{
 			}
 		}
 		
-		/**
-		 * safe exit 
-		 */
+		//safe exit
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 			public void run() {
 				consumers.forEach(consumerThread -> consumerThread.shutdown());
@@ -142,7 +141,7 @@ public class KafkaInput extends BaseInput{
 
 		public ConsumerLoop(Properties props, List<String> topics) {
 			this.topics = topics;
-			this.consumer = new KafkaConsumer<String, String>(props);
+			this.consumer = new KafkaConsumer<>(props);
 		}
 
 		public void run() {
@@ -161,15 +160,14 @@ public class KafkaInput extends BaseInput{
 				ConsumerRecords<String, String> records;
 				while (true) {
 					records = consumer.poll(Long.MAX_VALUE);
-					System.out.println(records);
 					if(records.count()<bulkEdge){
 						for (ConsumerRecord<String, String> record : records) {
 							try {
 								log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 								esfilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
 							} catch (Exception e) {
-								e.printStackTrace();
 								log.error("Thread " + Thread.currentThread().getId() + ": " + e);
+                                consumer.close();
 							}
 						}
 					}else{
@@ -179,8 +177,8 @@ public class KafkaInput extends BaseInput{
 								log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
 								bulkEsFilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
 							} catch (Exception e) {
-								e.printStackTrace();
-								log.error("Thread " + Thread.currentThread().getId() + ": " + e);
+                                log.error("Thread " + Thread.currentThread().getId() + ": " + e);
+                                consumer.close();
 							}
 						}
 						bulkEsFilter.emit();

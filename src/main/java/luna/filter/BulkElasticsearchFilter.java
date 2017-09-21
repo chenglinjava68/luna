@@ -46,13 +46,13 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 	public void filter(Map<String, Object>data){
 	    //time maxwell get data
 		logTime.info((Long) data.get("ts"));
+        Map<String,String> payload = getCleanPayload(data);
 		if(((String) data.get("type")).contentEquals("insert")){
-			eshandler.index(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""),(Map)data.get("data"));
+			eshandler.index(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""),payload);
 		}else if(((String) data.get("type")).contentEquals("delete")){
 			eshandler.delete(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""));
 		}else if(((String) data.get("type")).contentEquals("update")){
-			eshandler.update(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""),(Map)data.get("data"));
-		}else {
+			eshandler.update(((String) data.get("table")), ((String) data.get("database")),Objects.toString(((Map)data.get("data")).get("id"),""),payload);
 		}
 	}
 }

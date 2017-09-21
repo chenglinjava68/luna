@@ -37,41 +37,13 @@ public class ElasticAdmin {
 	private String clusterName;
 	private Logger log;
 	private final Map outputConfig;
-	
-	/**
-	 * 
-	* @Function: ElasticAdmin
-	* @Description: Constructor
-	*
-	* @param: config: elaticsearch config
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午7:26:15
-	 */
+
 	public ElasticAdmin(Map config){
 		outputConfig=config;
 		prepare();
 	}
-	
-	/**
-	 * 
-	* @Function: prepare()
-	* @Description: Initialize Elasticsearch properties and get client
-	*
-	* @param: void
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午7:26:53 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
-	public void prepare(){
+
+	private void prepare(){
 		BasicConfigurator.configure();
 		log=LogManager.getLogger("esAdmin");
 		log=LogManager.getLogger((String)outputConfig.get("logger"));
@@ -101,24 +73,6 @@ public class ElasticAdmin {
         }
     }
 
-	/**
-	 * 
-	* @Function: setIndex
-	* @Description: put mapping and update mapping
-	*
-	* @param: skip
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午7:49:22 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
 	public void setIndex(String index,String type,Map source,int shardNumber,int replicaNumber){
         Builder builder=Settings.builder()
             .put("index.number_of_shards",shardNumber)
@@ -134,26 +88,7 @@ public class ElasticAdmin {
             .get();
 		log.info(response);
 	}
-	
-	//delete mapping
-	/**
-	 * 
-	* @Function: deleteIndex
-	* @Description: delete mapping
-	*
-	* @param: skip
-	* @return: void
-	* @throws: void
-	*
-	* @version: v1.0.0
-	* @author: GaoXing Chen
-	* @date: 2017年8月21日 下午7:50:52 
-	*
-	* Modification History:
-	* Date         Author          Version			Description
-	*---------------------------------------------------------*
-	* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
-	 */
+
 	public void deleteIndex(String index){
 		if(!client.admin().indices().prepareExists(index).get().isExists()){
 			DeleteIndexResponse response=  client.admin().indices().prepareDelete(index).get();
