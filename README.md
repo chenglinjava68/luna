@@ -15,8 +15,7 @@ Kafka作为一个分布式的消息队列中间件，支持多个生产源生产
 
 ## Download
 
-    curl -sLo - https://github.com/zendesk/maxwell/releases/download/v1.10.6/maxwell-1.10.6.tar.gz \
-       | tar zxvf -
+    curl -sLo - https://github.com/zendesk/maxwell/releases/download/v1.10.6/maxwell-1.10.6.tar.gz | tar zxvf -
     mv maxwell-1.10.6 /home/maxwell
     cd maxwell
     
@@ -61,6 +60,8 @@ Copy config.properties.example to config.properties and modify the following pro
     kafka.linger.ms=0
     ### One table in one partition
     producer_partition_by=table # [database, table, primary_key, column]
+    include_dbs=db1,db2
+    include_tables=table1,table2,table3
 
 ## Start maxwell
 
