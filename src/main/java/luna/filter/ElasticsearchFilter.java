@@ -1,12 +1,8 @@
 package luna.filter;
 
 import java.util.Map;
-import java.util.Objects;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import luna.output.ElasticsearchOutput;
-import luna.util.TimeUtil;
+
 
 /**
  * 
@@ -26,11 +22,10 @@ import luna.util.TimeUtil;
  */
 public class ElasticsearchFilter extends BaseFilter {
 	private final ElasticsearchOutput eshandler;
-	private Logger logTime;
 
 	public ElasticsearchFilter(Map config){
+	    super();
 		eshandler=new ElasticsearchOutput(config);
-		logTime=LogManager.getLogger("time");
 	}
 
 	public void filter(Map<String, Object>data){
