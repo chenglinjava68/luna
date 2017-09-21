@@ -1,10 +1,14 @@
 package luna.filter;
 
 import luna.util.StringUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BaseFilter {
+    protected Logger logTime;
 
     protected String database;
     protected String table;
@@ -12,6 +16,11 @@ public class BaseFilter {
     protected String type;
     protected Long ts;
     protected Map payload;
+
+    public BaseFilter(){
+        logTime= LogManager.getLogger("time");
+        payload = new HashMap<String,Object>();
+    }
 
     public void filter(Map<String,Object>data){
         getCleanPayload(data);

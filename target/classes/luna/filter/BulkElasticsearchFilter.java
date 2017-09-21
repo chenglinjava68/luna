@@ -1,11 +1,6 @@
 package luna.filter;
 
 import java.util.Map;
-import java.util.Objects;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import luna.output.BulkElasticsearchOutput;
 
 /**
@@ -26,11 +21,10 @@ import luna.output.BulkElasticsearchOutput;
  */
 public class BulkElasticsearchFilter  extends BaseFilter{
 	private final BulkElasticsearchOutput eshandler;
-	private Logger logTime;
 
 	public BulkElasticsearchFilter(Map config){
+	    super();
 		eshandler=new BulkElasticsearchOutput(config);
-		logTime=LogManager.getLogger("time");
 	}
 
 	public void prepare(){
