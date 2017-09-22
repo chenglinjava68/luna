@@ -167,7 +167,7 @@ public class KafkaInput extends BaseInput{
                                 esfilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
                             } catch (Exception e) {
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                Thread.currentThread().interrupt();
+                                consumer.wakeup();
                             }
                         }
                     }else{
@@ -178,7 +178,7 @@ public class KafkaInput extends BaseInput{
                                 bulkEsFilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
                             } catch (Exception e) {
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                Thread.currentThread().interrupt();
+                                consumer.wakeup();
                             }
                         }
                         bulkEsFilter.emit();
