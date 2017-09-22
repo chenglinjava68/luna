@@ -1,20 +1,12 @@
 package luna.elasticAdmin;
 
-import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.Map;
 
 import luna.output.BaseOutput;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
-import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.settings.Settings.Builder;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 /**
  * 

@@ -1,18 +1,9 @@
 package luna.output;
 
-import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.Map;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
 /**
  * 
