@@ -75,6 +75,7 @@ public class KafkaInput extends BaseInput{
 
     /*init log and properties*/
     private void prepare() {
+        System.setProperty("java.security.auth.login.config", "conf/kafka_client_jaas.conf");
         BasicConfigurator.configure();
         log=LogManager.getLogger((String)inputConfigs.get("logger"));
         numConsumers = (Integer)inputConfigs.get("threadnum");
@@ -90,6 +91,8 @@ public class KafkaInput extends BaseInput{
         props.put("value.deserializer", StringDeserializer.class.getName());
         props.put("max.partition.fetch.bytes",maxFetchByte);
         props.put("max.poll.records",maxPollRecords);
+        props.put("security.protocol", "SASL_PLAINTEXT");
+        props.put("sasl.mechanism", "PLAIN");
         consumers = new ArrayList<>();
     }
 
