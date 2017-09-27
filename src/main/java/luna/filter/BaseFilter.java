@@ -27,7 +27,8 @@ public class BaseFilter {
         getCleanPayload(data);
         type = (String) data.get("type");
         ts = (Long)data.get("ts");
-        database = (String)data.get("database")+"_test";
+        database = (String)data.get("database");
+                //+"_test";
         table = (String)data.get("table");
         id =  Objects.toString(payload.get("id"),"");
     }
