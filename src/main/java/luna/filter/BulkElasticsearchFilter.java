@@ -32,15 +32,17 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 	}
 
 	public void emit(){
+	    long begintime = System.currentTimeMillis();
 		eshandler.emitBulk();
 		//response time
-		logTime.info(System.currentTimeMillis());
+        long endtime = System.currentTimeMillis();
+		logTime.info("bulkDelay " + (endtime - begintime));
 	}
 
 	public void filter(Map<String, Object>data){
 	    //time maxwell get data
         super.filter(data);
-		logTime.info(ts);
+		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
 		if(type.contentEquals("insert")){
 			eshandler.index(table, database,id,payload);
 		}else if(type.contentEquals("delete")){
