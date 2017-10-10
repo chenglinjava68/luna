@@ -53,8 +53,8 @@ public class KafkaInput extends BaseInput{
     private int bulkEdge;					//The record number edge to use Elasticsearch bulk
     private Logger log;
     private List<ConsumerLoop> consumers;
-    private final ElasticsearchFilter esfilter;
-    private final BulkElasticsearchFilter bulkEsFilter;
+//    private final ElasticsearchFilter esfilter;
+//    private final BulkElasticsearchFilter bulkEsFilter;
     private final  Map inputConfigs;		//config map from example.yml
     private final Map outputConfigs;
 
@@ -68,8 +68,8 @@ public class KafkaInput extends BaseInput{
         }
         inputConfigs = (Map) configs.get("NewKafka");
         outputConfigs = (Map) configs.get("Elasticsearch");
-        esfilter=new ElasticsearchFilter(outputConfigs);
-        bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
+//        esfilter = new ElasticsearchFilter(outputConfigs);
+//        bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
         prepare();
     }
 
@@ -151,12 +151,16 @@ public class KafkaInput extends BaseInput{
     }
 
     public class ConsumerLoop implements Runnable {
+        private final ElasticsearchFilter esfilter;
+        private final BulkElasticsearchFilter bulkEsFilter;
         private final KafkaConsumer<String, String> consumer;
         private final List<String> topics;
 
         public ConsumerLoop(Properties props, List<String> topics) {
             this.topics = topics;
             this.consumer = new KafkaConsumer<>(props);
+            esfilter = new ElasticsearchFilter(outputConfigs);
+            bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
         }
 
         public void run() {
