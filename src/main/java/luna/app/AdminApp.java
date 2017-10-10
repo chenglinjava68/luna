@@ -30,7 +30,6 @@ public class AdminApp {
 			config = ConfigHelp.parse("conf/mapping.yml");
 			configs = ConfigHelp.parse("conf/example.yml");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		final Map outputConfigs = (Map) configs.get("Elasticsearch");
@@ -40,7 +39,7 @@ public class AdminApp {
 		mapping.forEach(index -> {
 			index.forEach((indexName, type) -> {
 				type.forEach((typeName, source) -> {
-                                    admin.setIndex(indexName, typeName, source);
+                                    admin.setIndex(indexName, typeName, source, mapSettings.get("index.shard.number"), mapSettings.get("index.replica.number"));
 				});
 			});
 		});

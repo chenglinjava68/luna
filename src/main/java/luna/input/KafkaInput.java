@@ -102,14 +102,26 @@ public class KafkaInput extends BaseInput{
         log.info("threadnum: "+numConsumers+" and topicnum: "+ topicNum);
 
         //assign consumer thread for topic
-        for (int i = 0; i < numConsumers; i++) {
-            for(int j=0;j<topicNum;j++){
+//        for (int i = 0; i < numConsumers; i++) {
+//            for(int j=0;j<topicNum;j++){
+//                if(j%numConsumers==i){
+//                    ConsumerLoop consumer = new ConsumerLoop(props, Arrays.asList(topics.get(j)));
+//                    consumers.add(consumer);
+//                    executor.submit(consumer);
+//                }
+//            }
+//        }
+
+        for(int i=0; i< numConsumers;i++){
+            ArrayList<String> topicLists= new ArrayList<>();
+            for (int j=0;j<topicNum;j++){
                 if(j%numConsumers==i){
-                    ConsumerLoop consumer = new ConsumerLoop(props, Arrays.asList(topics.get(j)));
-                    consumers.add(consumer);
-                    executor.submit(consumer);
+                    topicLists.add(topics.get(j));
                 }
             }
+            ConsumerLoop consumer = new ConsumerLoop(props, topicLists);
+            consumers.add(consumer);
+            executor.submit(consumer);
         }
 
         //safe exit
