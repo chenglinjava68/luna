@@ -53,8 +53,8 @@ public class KafkaInput extends BaseInput{
     private int bulkEdge;					//The record number edge to use Elasticsearch bulk
     private Logger log;
     private List<ConsumerLoop> consumers;
-    private final ElasticsearchFilter esfilter;
-    private final BulkElasticsearchFilter bulkEsFilter;
+//    private final ElasticsearchFilter esfilter;
+//    private final BulkElasticsearchFilter bulkEsFilter;
     private final  Map inputConfigs;		//config map from example.yml
     private final Map outputConfigs;
 
@@ -68,8 +68,8 @@ public class KafkaInput extends BaseInput{
         }
         inputConfigs = (Map) configs.get("NewKafka");
         outputConfigs = (Map) configs.get("Elasticsearch");
-        esfilter=new ElasticsearchFilter(outputConfigs);
-        bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
+//        esfilter = new ElasticsearchFilter(outputConfigs);
+//        bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
         prepare();
     }
 
@@ -102,14 +102,26 @@ public class KafkaInput extends BaseInput{
         log.info("threadnum: "+numConsumers+" and topicnum: "+ topicNum);
 
         //assign consumer thread for topic
-        for (int i = 0; i < numConsumers; i++) {
-            for(int j=0;j<topicNum;j++){
+//        for (int i = 0; i < numConsumers; i++) {
+//            for(int j=0;j<topicNum;j++){
+//                if(j%numConsumers==i){
+//                    ConsumerLoop consumer = new ConsumerLoop(props, Arrays.asList(topics.get(j)));
+//                    consumers.add(consumer);
+//                    executor.submit(consumer);
+//                }
+//            }
+//        }
+
+        for(int i=0; i< numConsumers;i++){
+            ArrayList<String> topicLists= new ArrayList<>();
+            for (int j=0;j<topicNum;j++){
                 if(j%numConsumers==i){
-                    ConsumerLoop consumer = new ConsumerLoop(props, Arrays.asList(topics.get(j)));
-                    consumers.add(consumer);
-                    executor.submit(consumer);
+                    topicLists.add(topics.get(j));
                 }
             }
+            ConsumerLoop consumer = new ConsumerLoop(props, topicLists);
+            consumers.add(consumer);
+            executor.submit(consumer);
         }
 
         //safe exit
@@ -139,12 +151,16 @@ public class KafkaInput extends BaseInput{
     }
 
     public class ConsumerLoop implements Runnable {
+        private final ElasticsearchFilter esfilter;
+        private final BulkElasticsearchFilter bulkEsFilter;
         private final KafkaConsumer<String, String> consumer;
         private final List<String> topics;
 
         public ConsumerLoop(Properties props, List<String> topics) {
             this.topics = topics;
             this.consumer = new KafkaConsumer<>(props);
+            esfilter = new ElasticsearchFilter(outputConfigs);
+            bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
         }
 
         public void run() {

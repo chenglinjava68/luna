@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EsReponseFailTest {
-    public static void main(String [] args){
+    public static void main(String [] args) throws InterruptedException{
         Map outputConfig;
         Map configs=null;
         try {
@@ -42,6 +42,7 @@ public class EsReponseFailTest {
             }catch(Exception e){
             }
         }
+        Thread.sleep(100000);
         DeleteResponse indexResponse=client.prepareDelete("test", "user", "4").get();
         System.out.println(indexResponse.toString());
         Map insertdata= new HashMap();

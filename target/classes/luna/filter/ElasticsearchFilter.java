@@ -37,8 +37,8 @@ public class ElasticsearchFilter extends BaseFilter {
 		}else if(type.contentEquals("update")){
 			eshandler.update(table,database,id,payload);
 		}
-		//count time difference
-		logTime.info(""+table+" "+id+" "+ (System.currentTimeMillis()/1000-ts));
+		//count time difference 24 is error
+		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
 	}
 	
 	
