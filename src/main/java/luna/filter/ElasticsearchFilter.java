@@ -41,6 +41,7 @@ public class ElasticsearchFilter extends BaseFilter {
 
         long currentTimeMillis = System.currentTimeMillis();
         String modify_time =(String)payload.get("modify_time");
+        System.out.println(modify_time);
         long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");
         long diffMillis = currentTimeMillis - modifyTimeMillis;
         logTime.info(""+table+" "+diffMillis);
