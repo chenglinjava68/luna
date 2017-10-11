@@ -8,7 +8,7 @@ public class StringUtil {
                 .replaceAll("\\t", "\\\\t")
                 .replaceAll("\\\\", "\\\\\\\\")
                 .replaceAll("\\n", "\\\\\\\\n");
-        input = input.replaceAll("[!$%^*(+\"\']+|[+——！，。？、~#￥%……&*（）]+","");
+        //input = input.replaceAll("[!$%^*(+\"\']+|[+——！，。？、~#￥%……&*（）]+","");
         return input;
     }
 
