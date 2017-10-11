@@ -1,10 +1,15 @@
 NewKafka:
   logger: kafka # log4j2.xml
   topics:
-    - study_xes_student_courses
-    - study_xes_student_live_classes
-    - study_xes_student_live_op_logs
-    - study_xes_student_live_plans
+    - luna_xes_student_courses
+    - luna_xes_student_live_classes
+    - luna_xes_student_live_op_logs
+    - luna_xes_student_live_plans
+    - luna_xes_teachers
+    #- study_xes_student_courses
+    #- study_xes_student_live_classes
+    #- study_xes_student_live_op_logs
+    #- study_xes_student_live_plans
     #- study_test_xes_student_courses
     #- study_test_xes_student_live_classes
     #- study_test_xes_student_live_op_logs
