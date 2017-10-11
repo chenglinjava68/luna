@@ -2,6 +2,7 @@ package luna.filter;
 
 import java.util.Map;
 import luna.output.BulkElasticsearchOutput;
+import luna.util.TimeUtil;
 
 /**
  * 
@@ -40,7 +41,7 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 
 	public void filter(Map<String, Object>data){
         super.filter(data);
-		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
+		//logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
 		if(type.contentEquals("insert")){
 			eshandler.index(table, database,id,payload);
 		}else if(type.contentEquals("delete")){
@@ -48,5 +49,11 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 		}else if(type.contentEquals("update")){
 			eshandler.update(table, database,id,payload);
 		}
+		long getDataTimeMillis = System.currentTimeMillis();
+        String modify_time =(String)payload.get("modify_time");
+        System.out.println(modify_time);
+		long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");
+		long diffMillis = getDataTimeMillis - modifyTimeMillis;
+		logTime.info(""+table+" "+diffMillis);
 	}
 }

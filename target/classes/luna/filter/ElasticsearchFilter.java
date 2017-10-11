@@ -2,6 +2,7 @@ package luna.filter;
 
 import java.util.Map;
 import luna.output.ElasticsearchOutput;
+import luna.util.TimeUtil;
 
 
 /**
@@ -29,7 +30,7 @@ public class ElasticsearchFilter extends BaseFilter {
 	}
 
 	public void filter(Map<String, Object>data){
-	        super.filter(data);
+        super.filter(data);
 		if(type.contentEquals("insert")){
 			eshandler.index(table, database,id,payload);
 		}else if(type.contentEquals("delete")){
@@ -37,8 +38,15 @@ public class ElasticsearchFilter extends BaseFilter {
 		}else if(type.contentEquals("update")){
 			eshandler.update(table,database,id,payload);
 		}
-		//count time difference 24 is error
-		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
+
+        long currentTimeMillis = System.currentTimeMillis();
+        String modify_time =(String)payload.get("modify_time");
+        System.out.println(modify_time);
+        long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");
+        long diffMillis = currentTimeMillis - modifyTimeMillis;
+        logTime.info(""+table+" "+diffMillis);
+
+		//logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
 	}
 	
 	
