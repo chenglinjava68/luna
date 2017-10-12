@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +38,7 @@ public class DingDingMsgUtil {
     }
 
     public static void sendMsg(String msg){
+        msg = (new Date()).toString()+" LUNA ERROR " +msg;
         log.info("MESSAGE: "+msg);
         HttpEntity entity = new StringEntity(jsonMsg(msg),charset);
         try {
