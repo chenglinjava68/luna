@@ -53,7 +53,7 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 		long getDataTimeMillis = System.currentTimeMillis();
         String modify_time =(String)payload.get("modify_time");
         long modifyTimeMillis=0;
-        modifyTimeMillis = TimeUtil.stringToLong(modify_time, "yy-MM-dd HH:mm:ss.SSS");
+        modifyTimeMillis = TimeUtil.stringToLong(modify_time, "yy-MM-dd HH:mm:ss");
 		long diffMillis = getDataTimeMillis - modifyTimeMillis-28800000;
 		logTime.info(""+table+" "+diffMillis);
 	}
