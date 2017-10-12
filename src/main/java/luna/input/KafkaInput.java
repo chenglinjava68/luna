@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import luna.util.DingDingMsgUtil;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -53,8 +54,6 @@ public class KafkaInput extends BaseInput{
     private int bulkEdge;					//The record number edge to use Elasticsearch bulk
     private Logger log;
     private List<ConsumerLoop> consumers;
-//    private final ElasticsearchFilter esfilter;
-//    private final BulkElasticsearchFilter bulkEsFilter;
     private final  Map inputConfigs;		//config map from example.yml
     private final Map outputConfigs;
 
@@ -68,8 +67,6 @@ public class KafkaInput extends BaseInput{
         }
         inputConfigs = (Map) configs.get("NewKafka");
         outputConfigs = (Map) configs.get("Elasticsearch");
-//        esfilter = new ElasticsearchFilter(outputConfigs);
-//        bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
         prepare();
     }
 
@@ -100,17 +97,6 @@ public class KafkaInput extends BaseInput{
         executor = Executors.newFixedThreadPool(numConsumers);
         int topicNum = topics.size();
         log.info("threadnum: "+numConsumers+" and topicnum: "+ topicNum);
-
-        //assign consumer thread for topic
-//        for (int i = 0; i < numConsumers; i++) {
-//            for(int j=0;j<topicNum;j++){
-//                if(j%numConsumers==i){
-//                    ConsumerLoop consumer = new ConsumerLoop(props, Arrays.asList(topics.get(j)));
-//                    consumers.add(consumer);
-//                    executor.submit(consumer);
-//                }
-//            }
-//        }
 
         for(int i=0; i< numConsumers;i++){
             ArrayList<String> topicLists= new ArrayList<>();
@@ -196,6 +182,7 @@ public class KafkaInput extends BaseInput{
                                 log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
                                 bulkEsFilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
                             } catch (Exception e) {
+                                DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
                                 consumer.wakeup();
                             }

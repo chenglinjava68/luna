@@ -2,6 +2,7 @@ package luna.output;
 
 import java.util.Map;
 
+import luna.util.DingDingMsgUtil;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 
@@ -36,6 +37,7 @@ public class BulkElasticsearchOutput extends BaseOutput{
 	public void emitBulk(){
 		BulkResponse bulkResponse=bulkRequest.get();
 		if (bulkResponse.hasFailures()) {
+            DingDingMsgUtil.sendMsg(bulkResponse.buildFailureMessage());
 			log.error(bulkResponse.buildFailureMessage());
 		}
 	}
