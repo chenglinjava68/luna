@@ -171,6 +171,7 @@ public class KafkaInput extends BaseInput{
                                 log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
                                 esfilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
                             } catch (Exception e) {
+                                DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
                                 consumer.wakeup();
                             }
