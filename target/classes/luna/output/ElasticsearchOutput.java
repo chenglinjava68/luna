@@ -34,16 +34,19 @@ public class ElasticsearchOutput extends BaseOutput{
 
 	public void index(String index,String type,String id,final Map data){
 		IndexResponse response=client.prepareIndex(index,type,id).setSource(data).get();
+		judgeResponse(response);
 		log.info(response);
 	}
 
 	public void delete(String index,String type,String id){
 		DeleteResponse response = client.prepareDelete(index, type, id).get();
+        judgeResponse(response);
 		log.info(response);
 	}
 
 	public void update(String index,String type,String id,final Map data){
 		UpdateResponse response=client.prepareUpdate(index,type,id).setDoc(data).get();
+        judgeResponse(response);
 		log.info(response);
 	}
 
@@ -60,11 +63,13 @@ public class ElasticsearchOutput extends BaseOutput{
 
 	public void indexAndAddParent(String index,String type,String id,String parentId,final Map data){
 		IndexResponse response=client.prepareIndex(index, type,id).setParent(parentId).setSource(data).get();
+        judgeResponse(response);
 		log.info(response);
 	}
 
 	public void deleteWithParent(String index,String type,String id,String pid){
 		DeleteResponse response = client.prepareDelete(index, type, id).setParent(pid).get();
+        judgeResponse(response);
 		log.info(response);
 	}
     

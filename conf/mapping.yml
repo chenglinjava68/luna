@@ -3,9 +3,9 @@
 # One space after :
 # - is list
 # parent must be after child
-#mapping.settings:
-#  index.shard.number: 25
-#  index.replica.number: 2
+mapping.settings:
+  index.shard.number: 25
+  index.replica.number: 2
 
 mapping:
   - xes_student_courses:
@@ -146,6 +146,11 @@ mapping:
           creater_id:
             type: integer
           create_time:
+            type: keyword
+            null_value: ""
+            ignore_above: 256
+            store: true
+          modify_time:
             type: keyword
             null_value: ""
             ignore_above: 256

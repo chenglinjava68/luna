@@ -35,14 +35,15 @@ public class AdminApp {
 		final Map outputConfigs = (Map) configs.get("Elasticsearch");
 		ElasticAdmin admin = new ElasticAdmin(outputConfigs);
 		List<Map<String, Map<String, Map>>> mapping = (List<Map<String, Map<String, Map>>>) config.get("mapping");
-                Map<String,Integer> mapSettings=(Map<String, Integer>) config.get("mapping.settings");
+        Map<String,Integer> mapSettings=(Map<String, Integer>) config.get("mapping.settings");
 		mapping.forEach(index -> {
 			index.forEach((indexName, type) -> {
 				type.forEach((typeName, source) -> {
-                                    admin.setIndex(indexName, typeName, source, mapSettings.get("index.shard.number"), mapSettings.get("index.replica.number"));
+                    //admin.setIndex(indexName, typeName, source, mapSettings.get("index.shard.number"), mapSettings.get("index.replica.number"));
+                    admin.setIndex(indexName, typeName, source);
 				});
 			});
 		});
-                admin.shutdown();
+        admin.shutdown();
 	}
 }
