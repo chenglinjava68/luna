@@ -65,13 +65,13 @@ public class TimeUtil {
         return new SimpleDateFormat(formatType).format(data);
     }
 
-    public static long stringToLong(String strTime, String formatType) {
+    public static long stringToLong(String strTime, String formatType) throws ParseException{
     	SimpleDateFormat sdf = new SimpleDateFormat(formatType);
     	long currentTime=0;
 		try {
 			currentTime = sdf.parse(strTime).getTime();
 		} catch (ParseException e) {
-			e.printStackTrace();
+			throw e;
 		}
     	return currentTime;
     }

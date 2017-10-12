@@ -1,5 +1,6 @@
 package luna.filter;
 
+import java.text.ParseException;
 import java.util.Map;
 import luna.output.BulkElasticsearchOutput;
 import luna.util.TimeUtil;
@@ -39,7 +40,7 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 		logTime.info("bulkDelay " + (endTime - beginTime));
 	}
 
-	public void filter(Map<String, Object>data){
+	public void filter(Map<String, Object>data) throws Exception{
         super.filter(data);
 		//logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
 		if(type.contentEquals("insert")){
@@ -51,7 +52,12 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 		}
 		long getDataTimeMillis = System.currentTimeMillis();
         String modify_time =(String)payload.get("modify_time");
-		long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");
+        long modifyTimeMillis=0;
+        try {
+            modifyTimeMillis = TimeUtil.stringToLong(modify_time, "yy-MM-dd HH:mm:ss.SSS");
+        }catch (ParseException e){
+            throw e;
+        }
 		long diffMillis = getDataTimeMillis - modifyTimeMillis-28800000;
 		logTime.info(""+table+" "+diffMillis);
 	}

@@ -23,7 +23,7 @@ public class BaseFilter {
         payload = new HashMap<String,Object>();
     }
 
-    public void filter(Map<String,Object>data){
+    public void filter(Map<String,Object>data) throws Exception{
         getCleanPayload(data);
         type = (String) data.get("type");
         ts = (Long)data.get("ts");
