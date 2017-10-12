@@ -1,8 +1,10 @@
 package luna.output;
 
+import luna.util.DingDingMsgUtil;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -52,6 +54,12 @@ public class BaseOutput {
         if(client!=null){
             client.close();
             log.info("Client is closed !");
+        }
+    }
+
+    public void judgeResponse(DocWriteResponse response){
+        if(response.getShardInfo().getFailed()>0){
+            DingDingMsgUtil.sendMsg(response.getShardInfo().toString());
         }
     }
 }
