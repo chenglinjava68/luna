@@ -37,7 +37,15 @@ public class BulkElasticsearchOutput extends BaseOutput{
 	public void emitBulk(){
 		BulkResponse bulkResponse=bulkRequest.get();
 		if (bulkResponse.hasFailures()) {
-            DingDingMsgUtil.sendMsg(bulkResponse.buildFailureMessage());
+		    if(bulkResponse.getItems().length>10){
+                DingDingMsgUtil.sendMsg("BULK ERROR(too much message), for detail, please view the log");
+            }else{
+                bulkResponse.forEach(
+                        bulkItemResponse -> {
+                            DingDingMsgUtil.sendMsg(bulkItemResponse.getFailureMessage());
+                        }
+                );
+            }
 			log.error(bulkResponse.buildFailureMessage());
 		}
 	}
