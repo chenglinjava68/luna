@@ -29,7 +29,7 @@ public class ElasticsearchFilter extends BaseFilter {
 		eshandler=new ElasticsearchOutput(config);
 	}
 
-	public void filter(Map<String, Object>data){
+	public void filter(Map<String, Object>data) throws Exception{
         super.filter(data);
 		if(type.contentEquals("insert")){
 			eshandler.index(table, database,id,payload);
