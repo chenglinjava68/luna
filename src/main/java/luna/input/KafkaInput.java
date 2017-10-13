@@ -180,7 +180,7 @@ public class KafkaInput extends BaseInput{
 
         private void emit(BaseFilter filter,ConsumerRecords<String, String> records){
             for (ConsumerRecord<String, String> record : records) {
-                System.out.println(record.toString());
+                log.info(record.toString());
                 try {
                     log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
                     filter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
