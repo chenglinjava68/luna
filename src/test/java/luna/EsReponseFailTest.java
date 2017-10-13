@@ -42,15 +42,14 @@ public class EsReponseFailTest {
             }catch(Exception e){
             }
         }
-        Thread.sleep(100000);
         DeleteResponse indexResponse=client.prepareDelete("test", "user", "4").get();
         System.out.println(indexResponse.toString());
         Map insertdata= new HashMap();
-        insertdata.put("name",34);
-        insertdata.put("age","sdddd");
+        insertdata.put("name","sss");
+        insertdata.put("age",29);
         try {
             IndexResponse response=client.prepareIndex("test", "user", "4").setSource(insertdata).get();
-            System.out.println(response);
+            System.out.println("ddddd"+response);
         }catch (Exception e){
             System.out.println(e);
         }
