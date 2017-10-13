@@ -12,10 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import luna.util.DingDingMsgUtil;
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.errors.WakeupException;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -91,6 +88,7 @@ public class KafkaInput extends BaseInput{
         props.put("max.poll.records",maxPollRecords);
         props.put("security.protocol", "SASL_PLAINTEXT");
         props.put("sasl.mechanism", "PLAIN");
+        props.put("enable.auto.commit", "false");
         consumers = new ArrayList<>();
     }
 
@@ -173,6 +171,11 @@ public class KafkaInput extends BaseInput{
                             try {
                                 log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
                                 esfilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
+                                try {
+                                    consumer.commitSync();
+                                } catch (CommitFailedException e) {
+                                    log.error(e.getMessage());
+                                }
                             } catch (Exception e) {
                                 DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
@@ -185,6 +188,11 @@ public class KafkaInput extends BaseInput{
                             try {
                                 log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
                                 bulkEsFilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
+                                try {
+                                    consumer.commitSync();
+                                } catch (CommitFailedException e) {
+                                    log.error(e.getMessage());
+                                }
                             } catch (Exception e) {
                                 DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
