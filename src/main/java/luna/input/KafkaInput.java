@@ -166,7 +166,7 @@ public class KafkaInput extends BaseInput{
                 log.info("Thread-"+Thread.currentThread().getId()+" Get kafka client!");
                 ConsumerRecords<String, String> records;
                 while (!closed.get()) {
-                    System.out.println("I poll !!!!!!!!!!!!!!!!!!!!!!!!");
+                    System.out.println(topics+"I poll !!!!!!!!!!!!!!!!!!!!!!!!");
                     records = consumer.poll(Long.MAX_VALUE);
                     if(records.count()<bulkEdge){
                         for (ConsumerRecord<String, String> record : records) {
