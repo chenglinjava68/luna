@@ -1,7 +1,6 @@
 package luna.input;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import luna.filter.BaseFilter;
 import luna.util.DingDingMsgUtil;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
@@ -61,17 +61,14 @@ public class KafkaInput extends BaseInput{
             configs=ConfigHelp.parse(configFile);
         } catch (Exception e) {
             e.printStackTrace();
-            log.error(e);
         }
         inputConfigs = (Map) configs.get("NewKafka");
         outputConfigs = (Map) configs.get("Elasticsearch");
-        prepare();
+        initConfig();
+        setProps();
     }
 
-    /*init log and properties*/
-    private void prepare() {
-        System.setProperty("java.security.auth.login.config", "conf/kafka_client_jaas.conf");
-        BasicConfigurator.configure();
+    private void initConfig(){
         log=LogManager.getLogger((String)inputConfigs.get("logger"));
         numConsumers = (Integer)inputConfigs.get("threadnum");
         groupId = (String)inputConfigs.get("group.id");
@@ -79,6 +76,11 @@ public class KafkaInput extends BaseInput{
         maxFetchByte = ""+inputConfigs.get("max.fetch.byte");
         maxPollRecords=(int)inputConfigs.get("max.poll.records");
         bulkEdge = (int) inputConfigs.get("bulk.edge");
+    }
+
+    private void setProps(){
+        System.setProperty("java.security.auth.login.config", "conf/kafka_client_jaas.conf");
+        BasicConfigurator.configure();
         props = new Properties();
         props.put("bootstrap.servers", inputConfigs.get("bootstrap.servers"));
         props.put("group.id", groupId);
@@ -114,7 +116,7 @@ public class KafkaInput extends BaseInput{
             public void run() {
                 consumers.forEach(consumerThread -> consumerThread.shutdown());
                 executor.shutdown();
-                log.info("All comsumer is shutdown!");
+                log.info("All consumer is shutdown!");
                 try {
                     executor.awaitTermination(5000, TimeUnit.MILLISECONDS);
                 } catch (InterruptedException e) {
@@ -127,7 +129,7 @@ public class KafkaInput extends BaseInput{
     public void shutdown() {
         consumers.forEach(consumerThread -> consumerThread.shutdown());
         executor.shutdown();
-        log.info("All comsumer is shutdown!");
+        log.info("All consumer is shutdown!");
         try {
             executor.awaitTermination(5000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
@@ -136,8 +138,8 @@ public class KafkaInput extends BaseInput{
     }
 
     public class ConsumerLoop implements Runnable {
-        private final AtomicBoolean closed = new AtomicBoolean(false);
-        private final ElasticsearchFilter esfilter;
+        private AtomicBoolean running = new AtomicBoolean(true);
+        private final ElasticsearchFilter esFilter;
         private final BulkElasticsearchFilter bulkEsFilter;
         private final KafkaConsumer<String, String> consumer;
         private final List<String> topics;
@@ -145,65 +147,26 @@ public class KafkaInput extends BaseInput{
         public ConsumerLoop(Properties props, List<String> topics) {
             this.topics = topics;
             this.consumer = new KafkaConsumer<>(props);
-            esfilter = new ElasticsearchFilter(outputConfigs);
+            esFilter = new ElasticsearchFilter(outputConfigs);
             bulkEsFilter = new BulkElasticsearchFilter(outputConfigs);
         }
 
         public void run() {
             try {
-                consumer.subscribe(topics,new ConsumerRebalanceListener() {
-                    public void onPartitionsRevoked(Collection<TopicPartition> partitions) {
-                    }
-
-                    public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
-                        partitions.forEach(partition -> {
-                            log.info("Rebalance happened " + partition.topic() + ":" + partition.partition());
-                        });
-                    }
-                });
+                monitorRebalance();
                 log.info("Thread-"+Thread.currentThread().getId()+" Get kafka client!");
                 ConsumerRecords<String, String> records;
-                while (!closed.get()) {
-                    System.out.println(topics+"I poll !!!!!!!!!!!!!!!!!!!!!!!!");
+                while (running.get()) {
                     records = consumer.poll(Long.MAX_VALUE);
                     if(records.count()<bulkEdge){
-                        for (ConsumerRecord<String, String> record : records) {
-                            try {
-                                log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
-                                esfilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
-                                try {
-                                    consumer.commitSync();
-                                } catch (CommitFailedException e) {
-                                    log.error(e.getMessage());
-                                }
-                            } catch (Exception e) {
-                                DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
-                                log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                shutdown();
-                            }
-                        }
+                        emit(esFilter,records);
                     }else{
                         bulkEsFilter.prepare();
-                        for (ConsumerRecord<String, String> record : records) {
-                            try {
-                                log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
-                                bulkEsFilter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
-                                try {
-                                    consumer.commitSync();
-                                } catch (CommitFailedException e) {
-                                    log.error(e.getMessage());
-                                }
-                            } catch (Exception e) {
-                                DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
-                                log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                shutdown();
-                            }
-                        }
+                        emit(bulkEsFilter,records);
                         bulkEsFilter.emit();
                     }
                 }
             } catch (WakeupException e) {
-                if (!closed.get()) throw e;
                 // ignore for shutdown
             } finally {
                 consumer.close();
@@ -212,8 +175,38 @@ public class KafkaInput extends BaseInput{
         }
 
         public void shutdown() {
-            closed.set(true);
             consumer.wakeup();
+        }
+
+        private void emit(BaseFilter filter,ConsumerRecords<String, String> records){
+            for (ConsumerRecord<String, String> record : records) {
+                try {
+                    log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
+                    filter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
+                    try {
+                        consumer.commitSync();
+                    } catch (CommitFailedException e) {
+                        log.error(e.getMessage());
+                    }
+                } catch (Exception e) {
+                    DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " " + topics.toString() + " " + e.getLocalizedMessage());
+                    log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
+                    shutdown();
+                }
+            }
+        }
+
+        private void monitorRebalance(){
+            consumer.subscribe(topics,new ConsumerRebalanceListener() {
+                public void onPartitionsRevoked(Collection<TopicPartition> partitions) {
+                }
+
+                public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
+                    partitions.forEach(partition -> {
+                        log.info("Rebalance happened " + partition.topic() + ":" + partition.partition());
+                    });
+                }
+            });
         }
 
     }
