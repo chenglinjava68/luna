@@ -62,4 +62,8 @@ public class BaseOutput {
             DingDingMsgUtil.sendMsg(response.getShardInfo().toString());
         }
     }
+
+    public void index(String index,String type,String id,final Map data){}
+    public void update(String index,String type,String id,final Map data){}
+    public void delete(String index,String type,String id){}
 }

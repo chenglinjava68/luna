@@ -22,23 +22,15 @@ import luna.util.TimeUtil;
 * 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
  */
 public class ElasticsearchFilter extends BaseFilter {
-	private final ElasticsearchOutput eshandler;
+	private final ElasticsearchOutput esHandler;
 
 	public ElasticsearchFilter(Map config){
 	        super();
-		eshandler=new ElasticsearchOutput(config);
+		esHandler=new ElasticsearchOutput(config);
 	}
 
 	public void filter(Map<String, Object>data) throws Exception{
-        super.filter(data);
-		if(type.contentEquals("insert")){
-			eshandler.index(table, database,id,payload);
-		}else if(type.contentEquals("delete")){
-			eshandler.delete(table, database,id);
-		}else if(type.contentEquals("update")){
-			eshandler.update(table,database,id,payload);
-		}
-
+        filter(data,esHandler);
         long currentTimeMillis = System.currentTimeMillis();
         String modify_time =(String)payload.get("modify_time");
         long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");
