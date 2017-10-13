@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import luna.util.DingDingMsgUtil;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
@@ -137,6 +138,7 @@ public class KafkaInput extends BaseInput{
     }
 
     public class ConsumerLoop implements Runnable {
+        private final AtomicBoolean closed = new AtomicBoolean(false);
         private final ElasticsearchFilter esfilter;
         private final BulkElasticsearchFilter bulkEsFilter;
         private final KafkaConsumer<String, String> consumer;
@@ -163,7 +165,7 @@ public class KafkaInput extends BaseInput{
                 });
                 log.info("Thread-"+Thread.currentThread().getId()+" Get kafka client!");
                 ConsumerRecords<String, String> records;
-                while (true) {
+                while (!closed.get()) {
                     records = consumer.poll(Long.MAX_VALUE);
                     if(records.count()<bulkEdge){
                         for (ConsumerRecord<String, String> record : records) {
@@ -173,7 +175,7 @@ public class KafkaInput extends BaseInput{
                             } catch (Exception e) {
                                 DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                consumer.wakeup();
+                                shutdown();
                             }
                         }
                     }else{
@@ -185,13 +187,14 @@ public class KafkaInput extends BaseInput{
                             } catch (Exception e) {
                                 DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " "+topics.toString()+" "+e.getLocalizedMessage());
                                 log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                                consumer.wakeup();
+                                shutdown();
                             }
                         }
                         bulkEsFilter.emit();
                     }
                 }
             } catch (WakeupException e) {
+                if (!closed.get()) throw e;
                 // ignore for shutdown
             } finally {
                 consumer.close();
@@ -200,6 +203,7 @@ public class KafkaInput extends BaseInput{
         }
 
         public void shutdown() {
+            closed.set(true);
             consumer.wakeup();
         }
 
