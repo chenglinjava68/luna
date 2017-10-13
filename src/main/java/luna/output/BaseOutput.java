@@ -26,7 +26,7 @@ public class BaseOutput {
 
     private void prepare(){
         BasicConfigurator.configure();
-        log= LogManager.getLogger((String)outputConfig.get("elasticsearch"));
+        log= LogManager.getLogger((String)outputConfig.get("logger"));
         boolean sniff=(boolean)outputConfig.get("sniff");                       //	Find the whole cluster by some host if sniff = true
         boolean compress=(boolean)outputConfig.get("compress");                 //	If compress the message
         String clusterName=(String)outputConfig.get("cluster.name");            //	Default Elasticsearch
