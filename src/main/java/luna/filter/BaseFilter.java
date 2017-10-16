@@ -1,6 +1,5 @@
 package luna.filter;
 
-import luna.output.BaseOutput;
 import luna.util.StringUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ *
+ * Copyright: Copyright (c) 2017 XueErSi
+ *
+ * @version v1.0.0
+ * @author GaoXing Chen
+ *
+ * Modification History:
+ * Date         Author          Version			Description
+ *---------------------------------------------------------*
+ * 2017年8月21日     GaoXing Chen      v1.0.0		   添加注释
+ */
 public class BaseFilter {
     protected Logger logTime;
 
@@ -19,14 +30,12 @@ public class BaseFilter {
     protected Long ts;
     protected Map payload;
 
-    public BaseFilter(){
+    protected BaseFilter(){
         logTime= LogManager.getLogger("time");
         payload = new HashMap<String,Object>();
     }
 
-    public void filter(Map<String,Object>data) throws Exception{}
-
-    public void filter(Map<String,Object>data, BaseOutput esHandler) throws Exception{
+    public void filter(Map<String,Object>data) throws Exception{
         getCleanPayload(data);
         type = (String) data.get("type");
         ts = (Long)data.get("ts");
@@ -34,18 +43,9 @@ public class BaseFilter {
                 //+"_test";
         table = (String)data.get("table");
         id =  Objects.toString(payload.get("id"),"");
-
-        if(type.contentEquals("insert")){
-            esHandler.index(table, database,id,payload);
-        }else if(type.contentEquals("delete")){
-            esHandler.delete(table, database,id);
-        }else if(type.contentEquals("update")){
-            esHandler.update(table,database,id,payload);
-        }
-
     }
 
-    public void getCleanPayload(Map<String,Object>data){
+    private void getCleanPayload(Map<String,Object>data){
         Map <String, Object> sourcePayload = (Map<String,Object>)data.get("data");
         payload.clear();
         sourcePayload.forEach((key,value)->{

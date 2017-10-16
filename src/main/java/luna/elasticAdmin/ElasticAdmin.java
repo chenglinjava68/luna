@@ -11,13 +11,9 @@ import org.elasticsearch.common.settings.Settings.Builder;
 /**
  * 
 * Copyright: Copyright (c) 2017 XueErSi
-* 
-* @ClassName: ElasticAdmin.java
-* @Description: Elastic admin client to create index mapping.
 *
-* @version: v1.0.0
-* @author: GaoXing Chen
-* @date: 2017年8月21日 下午7:24:19 
+* @version v1.0.0
+* @author GaoXing Chen
 *
 * Modification History:
 * Date         Author          Version			Description

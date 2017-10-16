@@ -9,13 +9,9 @@ import luna.elasticAdmin.ElasticAdmin;
 /**
  * 
 * Copyright: Copyright (c) 2017 XueErSi
-* 
-* @ClassName: AdminApp.java
-* @Description: Elasticsearch index mapping according to mapping.yml
 *
-* @version: v1.0.0
-* @author: GaoXing Chen
-* @date: 2017年8月21日 下午7:15:46 
+* @version v1.0.0
+* @author GaoXing Chen
 *
 * Modification History:
 * Date         Author          Version			Description

@@ -3,6 +3,7 @@ package luna;
 import luna.config.ConfigHelp;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -42,17 +43,14 @@ public class EsReponseFailTest {
             }catch(Exception e){
             }
         }
-        DeleteResponse indexResponse=client.prepareDelete("test", "user", "4").get();
-        System.out.println(indexResponse.toString());
+        //DeleteResponse indexResponse=client.prepareDelete("test", "user", "4").get();
+        //System.out.println(indexResponse.toString());
         Map insertdata= new HashMap();
-        insertdata.put("name","sss");
-        insertdata.put("age",29);
-        try {
-            IndexResponse response=client.prepareIndex("test", "user", "4").setSource(insertdata).get();
-            System.out.println("ddddd"+response);
-        }catch (Exception e){
-            System.out.println(e);
-        }
+        insertdata.put("name",29);
+        insertdata.put("age","sss");
+        UpdateResponse response=client.prepareUpdate("test", "user", "4").setDoc(insertdata).get();
+        System.out.println("ddddd"+response);
+
 
     }
 }

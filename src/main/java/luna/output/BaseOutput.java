@@ -1,5 +1,6 @@
 package luna.output;
 
+import luna.exception.ESException;
 import luna.util.DingDingMsgUtil;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +15,18 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ *
+ * Copyright: Copyright (c) 2017 XueErSi
+ *
+ * @version v1.0.0
+ * @author GaoXing Chen
+ *
+ * Modification History:
+ * Date         Author          Version			Description
+ *---------------------------------------------------------*
+ * 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
+ */
 public class BaseOutput {
     protected static TransportClient client = null;
     protected Logger log;
@@ -57,13 +70,15 @@ public class BaseOutput {
         }
     }
 
-    public void judgeResponse(DocWriteResponse response){
+    protected void judgeResponse(DocWriteResponse response) throws ESException{
+        log.info(response);
         if(response.getShardInfo().getFailed()>0){
             DingDingMsgUtil.sendMsg(response.getShardInfo().toString());
+            throw new ESException(response.getShardInfo().toString());
         }
     }
 
-    public void index(String index,String type,String id,final Map data){}
-    public void update(String index,String type,String id,final Map data){}
-    public void delete(String index,String type,String id){}
+//    public void index(String index,String type,String id,final Map data){}
+//    public void update(String index,String type,String id,final Map data){}
+//    public void delete(String index,String type,String id){}
 }

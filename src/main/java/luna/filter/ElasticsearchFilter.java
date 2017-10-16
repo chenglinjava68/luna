@@ -8,13 +8,9 @@ import luna.util.TimeUtil;
 /**
  * 
 * Copyright: Copyright (c) 2017 XueErSi
-* 
-* @ClassName: ElasticsearchFilter.java
-* @Description: Emit messages to Elasticsearch one by one.
 *
-* @version: v1.0.0
-* @author: GaoXing Chen
-* @date: 2017年8月21日 下午7:57:38 
+* @version v1.0.0
+* @author GaoXing Chen
 *
 * Modification History:
 * Date         Author          Version			Description
@@ -30,7 +26,14 @@ public class ElasticsearchFilter extends BaseFilter {
 	}
 
 	public void filter(Map<String, Object>data) throws Exception{
-        filter(data,esHandler);
+        super.filter(data);
+        if(type.contentEquals("insert")){
+            esHandler.index(table, database,id,payload);
+        }else if(type.contentEquals("delete")){
+            esHandler.delete(table, database,id);
+        }else if(type.contentEquals("update")){
+            esHandler.update(table,database,id,payload);
+        }
         long currentTimeMillis = System.currentTimeMillis();
         String modify_time =(String)payload.get("modify_time");
         long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");

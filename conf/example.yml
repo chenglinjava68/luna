@@ -14,7 +14,7 @@ NewKafka:
     #- study_test_xes_student_live_classes
     #- study_test_xes_student_live_op_logs
     #- study_test_xes_student_live_plans
-  threadnum: 4
+  thread.num: 4
   bootstrap.servers: 10.97.14.67:9092
   group.id: xes_dev_study
   max.fetch.byte: 1048576

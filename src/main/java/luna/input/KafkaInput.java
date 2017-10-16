@@ -29,12 +29,8 @@ import luna.filter.BulkElasticsearchFilter;
  *
  * Copyright: Copyright (c) 2017 XueErSi
  *
- * @ClassName: KafkaInput.java
- * @Description: Kafka Client
- *
- * @version: v1.0.0
- * @author: GaoXing Chen
- * @date: 2017年8月21日 下午6:34:15
+ * @version v1.0.0
+ * @author GaoXing Chen
  *
  * Modification History:
  * Date         Author          Version            Description
@@ -70,7 +66,7 @@ public class KafkaInput extends BaseInput{
 
     private void initConfig(){
         log=LogManager.getLogger((String)inputConfigs.get("logger"));
-        numConsumers = (Integer)inputConfigs.get("threadnum");
+        numConsumers = (Integer)inputConfigs.get("thread.num");
         groupId = (String)inputConfigs.get("group.id");
         topics=(List<String>) inputConfigs.get("topics");
         maxFetchByte = ""+inputConfigs.get("max.fetch.byte");
@@ -97,7 +93,7 @@ public class KafkaInput extends BaseInput{
     public void excute() {
         executor = Executors.newFixedThreadPool(numConsumers);
         int topicNum = topics.size();
-        log.info("threadnum: "+numConsumers+" and topicnum: "+ topicNum);
+        log.info("thread.num: "+numConsumers+" and topic.num: "+ topicNum);
 
         for(int i=0; i< numConsumers;i++){
             ArrayList<String> topicLists= new ArrayList<>();

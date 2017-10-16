@@ -24,6 +24,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * Copyright: Copyright (c) 2017 XueErSi
+ *
+ * @version v1.0.0
+ * @author GaoXing Chen
+ *
+ * Modification History:
+ * Date         Author          Version			Description
+ *---------------------------------------------------------*
+ * 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
+ */
 public class HttpClientUtil {
     private static final String HTTP = "http";
     private static final String HTTPS = "https";

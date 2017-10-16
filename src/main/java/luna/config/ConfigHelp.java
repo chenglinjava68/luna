@@ -12,18 +12,14 @@ import org.yaml.snakeyaml.Yaml;
 /**
  * 
 * Copyright: Copyright (c) 2017 XueErSi
-* 
-* @ClassName: ConfigHelp.java
-* @Description: Helper of parsing .yml file or network .yml file with org.yaml.snakeyaml.Yaml.
 *
-* @version: v1.0.0
-* @author: GaoXing Chen
-* @date: 2017年8月21日 下午7:20:58 
+* @version v1.0.0
+* @author GaoXing Chen
 *
 * Modification History:
 * Date         Author          Version			Description
 *---------------------------------------------------------*
-* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
+* 2017年8月21日     GaoXing Chen      v1.0.0		  添加注释
  */
 public class ConfigHelp {
     private static final String HTTP = "http://";

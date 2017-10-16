@@ -8,13 +8,9 @@ import luna.util.TimeUtil;
 /**
  * 
 * Copyright: Copyright (c) 2017 XueErSi
-* 
-* @ClassName: BulkElasticsearchFilter.java
-* @Description: Emit messages to Elasticsearch with bulk API.
 *
-* @version: v1.0.0
-* @author: GaoXing Chen
-* @date: 2017年8月21日 下午7:52:28 
+* @version v1.0.0
+* @author GaoXing Chen
 *
 * Modification History:
 * Date         Author          Version			Description
@@ -41,7 +37,15 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 	}
 
 	public void filter(Map<String, Object>data) throws Exception{
-        filter(data,bulkEsHandler);
+        super.filter(data);
+
+        if(type.contentEquals("insert")){
+            bulkEsHandler.prepareIndex(table, database,id,payload);
+        }else if(type.contentEquals("delete")){
+            bulkEsHandler.prepareDelete(table, database,id);
+        }else if(type.contentEquals("update")){
+            bulkEsHandler.prepareUpdate(table,database,id,payload);
+        }
 		//logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
 		long getDataTimeMillis = System.currentTimeMillis();
         String modify_time =(String)payload.get("modify_time");

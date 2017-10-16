@@ -2,6 +2,8 @@ package luna.output;
 
 import java.util.Map;
 
+import luna.exception.ESException;
+import luna.util.DingDingMsgUtil;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
@@ -13,13 +15,9 @@ import org.elasticsearch.index.query.QueryBuilders;
 /**
  * 
 * Copyright: Copyright (c) 2017 XueErSi
-* 
-* @ClassName: ElasticsearchOutput.java
-* @Description: Elasticsearch client(one by one)
 *
-* @version: v1.0.0
-* @author: GaoXing Chen
-* @date: 2017年8月21日 下午8:12:12 
+* @version v1.0.0
+* @author GaoXing Chen
 *
 * Modification History:
 * Date         Author          Version			Description
@@ -32,22 +30,23 @@ public class ElasticsearchOutput extends BaseOutput{
 	    super(config);
     }
 
-	public void index(String index,String type,String id,final Map data){
-		IndexResponse response=client.prepareIndex(index,type,id).setSource(data).get();
-		judgeResponse(response);
-		log.info(response);
+	public void index(String index,String type,String id,final Map data) throws ESException{
+        IndexResponse response = client.prepareIndex(index, type, id).setSource(data).get();
+        judgeResponse(response);
 	}
 
 	public void delete(String index,String type,String id){
 		DeleteResponse response = client.prepareDelete(index, type, id).get();
-        judgeResponse(response);
-		log.info(response);
+        log.info(response);
+        if(response.getShardInfo().getFailed()>0){
+            DingDingMsgUtil.sendMsg(response.getShardInfo().toString());
+        }
 	}
 
-	public void update(String index,String type,String id,final Map data){
-		UpdateResponse response=client.prepareUpdate(index,type,id).setDoc(data).get();
+	public void update(String index,String type,String id,final Map data) throws ESException{
+        UpdateResponse response = client.prepareUpdate(index, type, id).setDoc(data).get();
         judgeResponse(response);
-		log.info(response);
+
 	}
 
 	public void search(String index,String type,String id){
@@ -63,13 +62,11 @@ public class ElasticsearchOutput extends BaseOutput{
 
 	public void indexAndAddParent(String index,String type,String id,String parentId,final Map data){
 		IndexResponse response=client.prepareIndex(index, type,id).setParent(parentId).setSource(data).get();
-        judgeResponse(response);
 		log.info(response);
 	}
 
 	public void deleteWithParent(String index,String type,String id,String pid){
 		DeleteResponse response = client.prepareDelete(index, type, id).setParent(pid).get();
-        judgeResponse(response);
 		log.info(response);
 	}
     
