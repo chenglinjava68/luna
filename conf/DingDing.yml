@@ -1,6 +1,0 @@
-url: https://oapi.dingtalk.com/robot/send?access_token=043776d6a31c02ceb8c3519c15ffe447dd5f91702c158229ab419dc8705cfbd9
-isAtAll: false
-phonenumbers:
-  - "18321787920"
-  - "17611017205"
-  - "13521832831"
