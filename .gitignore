@@ -1,6 +1,7 @@
 target/
 .idea/
 nohup.out
+conf/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
