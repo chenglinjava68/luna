@@ -94,18 +94,36 @@ public class KafkaInput extends BaseInput{
         executor = Executors.newFixedThreadPool(numConsumers);
         int topicNum = topics.size();
         log.info("thread.num: "+numConsumers+" and topic.num: "+ topicNum);
+        HashMap <Integer,ArrayList<String>> consumerTopics = new HashMap<>();
 
-        for(int i=0; i< numConsumers;i++){
-            ArrayList<String> topicLists= new ArrayList<>();
-            for (int j=0;j<topicNum;j++){
-                if(j%numConsumers==i){
-                    topicLists.add(topics.get(j));
-                }
+        for (int j=0;j<topicNum;j++){
+            int thread = j%numConsumers;
+            if(consumerTopics.containsKey(thread)){
+                consumerTopics.get(thread).add(topics.get(j));
+            }else{
+                ArrayList<String>topicLists = new ArrayList<>();
+                topicLists.add(topics.get(j));
+                consumerTopics.put(thread,topicLists);
             }
-            ConsumerLoop consumer = new ConsumerLoop(props, topicLists);
+        }
+
+        consumerTopics.forEach((key,topicLists)->{
+            ConsumerLoop consumer = new ConsumerLoop(props,topicLists);
             consumers.add(consumer);
             executor.submit(consumer);
-        }
+        });
+
+//        for(int i=0; i< numConsumers;i++){
+//            ArrayList<String> topicLists= new ArrayList<>();
+//            for (int j=0;j<topicNum;j++){
+//                if(j%numConsumers==i){
+//                    topicLists.add(topics.get(j));
+//                }
+//            }
+//            ConsumerLoop consumer = new ConsumerLoop(props, topicLists);
+//            consumers.add(consumer);
+//            executor.submit(consumer);
+//        }
 
         //safe exit
         Runtime.getRuntime().addShutdownHook(new Thread() {
