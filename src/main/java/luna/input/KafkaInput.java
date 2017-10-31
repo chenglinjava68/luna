@@ -165,11 +165,39 @@ public class KafkaInput extends BaseInput{
 					//	System.out.println(record);
 					//}
                     if(records.count()<bulkEdge){
-                        emit(esFilter,records);
+                        for (ConsumerRecord<String, String> record : records) {
+                            try {
+                                log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
+                                esFilter.emit((Map<String, Object>) JSONValue.parseWithException(record.value()));
+                                try {
+                                    consumer.commitSync();
+                                } catch (CommitFailedException e) {
+                                    log.error(e.getMessage());
+                                }
+                            } catch (Exception e) {
+                                DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " " + topics.toString() + " " + e.getLocalizedMessage());
+                                log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
+                                shutdown();
+                            }
+                        }
                     }else{
-                        bulkEsFilter.prepare();
-                        emit(bulkEsFilter,records);
-                        bulkEsFilter.emit();
+                        try {
+                            bulkEsFilter.prepare();
+                            for (ConsumerRecord<String, String> record : records) {
+                                log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
+                                bulkEsFilter.prepareRequest((Map<String, Object>) JSONValue.parseWithException(record.value()));
+                            }
+                            bulkEsFilter.emit();
+                            try {
+                                consumer.commitSync();
+                            } catch (CommitFailedException e) {
+                                log.error(e.getMessage());
+                            }
+                        }catch (Exception e) {
+                            DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " " + topics.toString() + " " + e.getLocalizedMessage());
+                            log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
+                            shutdown();
+                        }
                     }
                 }
             } catch (WakeupException e) {
@@ -182,24 +210,6 @@ public class KafkaInput extends BaseInput{
 
         public void shutdown() {
             consumer.wakeup();
-        }
-
-        private void emit(BaseFilter filter,ConsumerRecords<String, String> records){
-            for (ConsumerRecord<String, String> record : records) {
-                try {
-                    log.info("Thread-" + Thread.currentThread().getId() + ": " + record);
-                    filter.filter((Map<String, Object>) JSONValue.parseWithException(record.value()));
-                    try {
-                        consumer.commitSync();
-                    } catch (CommitFailedException e) {
-                        log.error(e.getMessage());
-                    }
-                } catch (Exception e) {
-                    DingDingMsgUtil.sendMsg("Thread " + Thread.currentThread().getId() + " " + topics.toString() + " " + e.getLocalizedMessage());
-                    log.error("Thread " + Thread.currentThread().getId() + ": " + e.getLocalizedMessage());
-                    shutdown();
-                }
-            }
         }
 
         private void monitorRebalance(){

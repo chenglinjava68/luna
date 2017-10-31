@@ -36,9 +36,8 @@ public class BulkElasticsearchFilter  extends BaseFilter{
 		logTime.info("bulkDelay " + (endTime - beginTime));
 	}
 
-	public void filter(Map<String, Object>data) throws Exception{
-        super.filter(data);
-
+	public void prepareRequest(Map<String, Object>data) throws Exception{
+        filter(data);
         if(type.contentEquals("insert")){
             bulkEsHandler.prepareIndex(table, database,id,payload);
         }else if(type.contentEquals("delete")){

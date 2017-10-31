@@ -25,8 +25,8 @@ public class ElasticsearchFilter extends BaseFilter {
 		esHandler=new ElasticsearchOutput(config);
 	}
 
-	public void filter(Map<String, Object>data) throws Exception{
-        super.filter(data);
+	public void emit(Map<String, Object>data) throws Exception{
+        filter(data);
         if(type.contentEquals("insert")){
             esHandler.index(table, database,id,payload);
         }else if(type.contentEquals("delete")){
