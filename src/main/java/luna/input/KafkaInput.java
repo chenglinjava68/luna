@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -65,7 +66,6 @@ public class KafkaInput extends BaseInput{
     }
 
     private void initConfig(){
-        log=LogManager.getLogger((String)inputConfigs.get("logger"));
         numConsumers = (Integer)inputConfigs.get("thread.num");
         groupId = (String)inputConfigs.get("group.id");
         topics=(List<String>) inputConfigs.get("topics");
@@ -75,8 +75,9 @@ public class KafkaInput extends BaseInput{
     }
 
     private void setProps(){
-        System.setProperty("java.security.auth.login.config", "conf/kafka_client_jaas.conf");
+        System.setProperty("java.security.auth.login.config", "conf/kafka_client_jaas.conf"); 
         BasicConfigurator.configure();
+        log=LogManager.getLogger("kafka");
         props = new Properties();
         props.put("bootstrap.servers", inputConfigs.get("bootstrap.servers"));
         props.put("group.id", groupId);

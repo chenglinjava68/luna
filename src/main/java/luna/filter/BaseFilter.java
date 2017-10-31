@@ -40,7 +40,7 @@ public class BaseFilter {
         type = (String) data.get("type");
         ts = (Long)data.get("ts");
         database = (String)data.get("database");
-                //+"_test";
+		//+"_test";
         table = (String)data.get("table");
         id =  Objects.toString(payload.get("id"),"");
     }

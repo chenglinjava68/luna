@@ -21,7 +21,7 @@ public class ElasticsearchFilter extends BaseFilter {
 	private final ElasticsearchOutput esHandler;
 
 	public ElasticsearchFilter(Map config){
-	        super();
+	    super();
 		esHandler=new ElasticsearchOutput(config);
 	}
 
@@ -34,13 +34,13 @@ public class ElasticsearchFilter extends BaseFilter {
         }else if(type.contentEquals("update")){
             esHandler.update(table,database,id,payload);
         }
-        long currentTimeMillis = System.currentTimeMillis();
-        String modify_time =(String)payload.get("modify_time");
-        long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");
-        long diffMillis = currentTimeMillis - modifyTimeMillis-28800000;
-        logTime.info(""+table+" "+diffMillis);
+       // long currentTimeMillis = System.currentTimeMillis();
+       // String modify_time =(String)payload.get("modify_time");
+       // long modifyTimeMillis = TimeUtil.stringToLong(modify_time,"yy-MM-dd HH:mm:ss.SSS");
+       // long diffMillis = currentTimeMillis - modifyTimeMillis-28800000;
+       // logTime.info(""+table+" "+diffMillis);
 
-		//logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
+		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
 	}
 	
 	
