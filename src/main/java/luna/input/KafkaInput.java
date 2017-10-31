@@ -114,18 +114,6 @@ public class KafkaInput extends BaseInput{
             executor.submit(consumer);
         });
 
-//        for(int i=0; i< numConsumers;i++){
-//            ArrayList<String> topicLists= new ArrayList<>();
-//            for (int j=0;j<topicNum;j++){
-//                if(j%numConsumers==i){
-//                    topicLists.add(topics.get(j));
-//                }
-//            }
-//            ConsumerLoop consumer = new ConsumerLoop(props, topicLists);
-//            consumers.add(consumer);
-//            executor.submit(consumer);
-//        }
-
         //safe exit
         Runtime.getRuntime().addShutdownHook(new Thread() {
             public void run() {
@@ -173,6 +161,9 @@ public class KafkaInput extends BaseInput{
                 ConsumerRecords<String, String> records;
                 while (running.get()) {
                     records = consumer.poll(Long.MAX_VALUE);
+                    //for (ConsumerRecord<String, String> record : records) {
+					//	System.out.println(record);
+					//}
                     if(records.count()<bulkEdge){
                         emit(esFilter,records);
                     }else{
