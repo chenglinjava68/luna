@@ -22,24 +22,6 @@
 			</Policies>
 			<DefaultRolloverStrategy max="20" />
 		</RollingFile>
-		<RollingFile name="EsAdmin" fileName="/data/luna/logs/es_admin/esadmin.log"
-			filePattern="/data/luna/logs/es_admin/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-			<Policies>
-				<TimeBasedTriggeringPolicy />
-				<SizeBasedTriggeringPolicy size="10MB" />
-			</Policies>
-			<DefaultRolloverStrategy max="20" />
-		</RollingFile>
-		<RollingFile name="Test" fileName="/data/luna/logs/test/test.log"
-			filePattern="/data/luna/logs/test/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
-			<Policies>
-				<TimeBasedTriggeringPolicy />
-				<SizeBasedTriggeringPolicy size="10MB" />
-			</Policies>
-			<DefaultRolloverStrategy max="20" />
-		</RollingFile>
         <RollingFile name="DingDing" fileName="/data/luna/logs/ding/ding.log"
                      filePattern="/data/luna/logs/ding/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
@@ -64,10 +46,6 @@
 			<appender-ref ref="Console" />
 			<AppenderRef ref="Time" />
 		</Logger>
-		<Logger name="test" level="trace" additivity="false">
-			<appender-ref ref="Console" />
-			<AppenderRef ref="Test" />
-		</Logger>
 		<Logger name="elasticsearch" level="trace" additivity="false">
 			<appender-ref ref="Console" />
 			<AppenderRef ref="ES" />
@@ -75,10 +53,6 @@
 		<Logger name="kafka" level="trace" additivity="false">
 			<appender-ref ref="Console" />
 			<AppenderRef ref="Kafka" />
-		</Logger>
-		<Logger name="esAdmin" level="trace" additivity="false">
-			<appender-ref ref="Console" />
-			<AppenderRef ref="EsAdmin" />
 		</Logger>
         <Logger name="ding" level="trace" additivity="false">
             <appender-ref ref="Console" />
