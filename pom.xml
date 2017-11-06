@@ -125,7 +125,6 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>luna.app.AdminApp</mainClass>
 							<mainClass>luna.app.App</mainClass>
 						</manifest>
 					</archive>

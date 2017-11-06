@@ -18,8 +18,10 @@ import org.elasticsearch.common.settings.Settings.Builder;
 * Modification History:
 * Date         Author          Version			Description
 *---------------------------------------------------------*
-* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
+* 2017年8月21日     GaoXing Chen      v1.0.0	    deprecated
  */
+
+@Deprecated
 public class ElasticAdmin extends BaseOutput{
 
 	public ElasticAdmin(Map config){

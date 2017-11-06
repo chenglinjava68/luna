@@ -16,8 +16,10 @@ import luna.elasticAdmin.ElasticAdmin;
 * Modification History:
 * Date         Author          Version			Description
 *---------------------------------------------------------*
-* 2017年8月21日     GaoXing Chen      v1.0.0				添加注释
+* 2017年8月21日     GaoXing Chen      v1.0.0		deprecated
  */
+
+@Deprecated
 public class AdminApp {
 	public static void main(String[] args) {
 		Map configs = null;
