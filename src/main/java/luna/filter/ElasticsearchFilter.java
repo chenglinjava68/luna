@@ -40,7 +40,7 @@ public class ElasticsearchFilter extends BaseFilter {
        // long diffMillis = currentTimeMillis - modifyTimeMillis-28800000;
        // logTime.info(""+table+" "+diffMillis);
 
-		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
+		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-ts));
 	}
 	
 	

@@ -45,7 +45,7 @@ public class BulkElasticsearchFilter  extends BaseFilter{
         }else if(type.contentEquals("update")){
             bulkEsHandler.prepareUpdate(table,database,id,payload);
         }
-		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-24-ts));
+		logTime.info(""+table+" "+(System.currentTimeMillis()/1000-ts));
 	//	long getDataTimeMillis = System.currentTimeMillis();
     //    String modify_time =(String)payload.get("modify_time");
     //    long modifyTimeMillis=0;
