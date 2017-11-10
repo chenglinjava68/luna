@@ -55,7 +55,7 @@ public class BulkElasticsearchOutput extends BaseOutput{
 	}
 
 	public void prepareUpdate(String index,String type,String id,final Map data){
-		bulkRequest.add(client.prepareUpdate(index,type,id).setDoc(data));
+		bulkRequest.add(client.prepareUpdate(index,type,id).setDoc(data).setUpsert(data));
 	}
 	
 	

@@ -5,8 +5,10 @@ import java.util.Map;
 import luna.exception.ESException;
 import luna.util.DingDingMsgUtil;
 import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -44,7 +46,8 @@ public class ElasticsearchOutput extends BaseOutput{
 	}
 
 	public void update(String index,String type,String id,final Map data) throws ESException{
-        UpdateResponse response = client.prepareUpdate(index, type, id).setDoc(data).get();
+        UpdateResponse response = client.prepareUpdate(index,type,id).setDoc(data).setUpsert(data).get();
+        //UpdateResponse response = client.prepareUpdate(index, type, id).setDoc(data).get();
         judgeResponse(response);
 
 	}
