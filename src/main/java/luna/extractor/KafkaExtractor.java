@@ -97,9 +97,6 @@ public class KafkaExtractor extends AbstractLifeCycle implements Extractor {
                 while (running.get()) {
                     consumerRecords = consumer.poll(Long.MAX_VALUE);
                     consume(consumerRecords);
-//                    for(ConsumerRecord record:consumerRecords) {
-//                        System.out.println(record);
-//                    }
                 }
             } catch (WakeupException e) {
                 //shutdown
@@ -138,11 +135,11 @@ public class KafkaExtractor extends AbstractLifeCycle implements Extractor {
                     records.add(payload);
                 }
                 kafkaRecordTranslator.translate(records);
-                //commitOffset();
+                commitOffset();
             }catch (Throwable e){
                 DingDingMsgUtil.sendMsg(ExceptionUtils.getFullStackTrace(e));
                 errorLog.error("Batch consumer fall failed, try to consumer one by one: "+ExceptionUtils.getFullStackTrace(e));
-                //consumeOneByOne(consumerRecords);
+                consumeOneByOne(consumerRecords);
             }
         }
 
@@ -164,7 +161,7 @@ public class KafkaExtractor extends AbstractLifeCycle implements Extractor {
                             }
                         }
                     }
-                    //commitOffset();
+                    commitOffset();
                 }catch (Throwable e){
                     DingDingMsgUtil.sendMsg(ExceptionUtils.getFullStackTrace(e));
                     errorLog.error("ERROR can not handle by retry: "+ExceptionUtils.getFullStackTrace(e));
@@ -173,16 +170,16 @@ public class KafkaExtractor extends AbstractLifeCycle implements Extractor {
             }
         }
 
-//        private void commitOffset(){
-//            for(int i=0;i<3;i++) {
-//                try {
-//                    consumer.commitSync();
-//                    break;
-//                } catch (CommitFailedException e) {
-//                    errorLog.error("Commit offset after "+i+" times retry "+ExceptionUtils.getFullStackTrace(e));
-//                }
-//            }
-//        }
+        private void commitOffset(){
+            for(int i=0;i<3;i++) {
+                try {
+                    consumer.commitSync();
+                    break;
+                } catch (CommitFailedException e) {
+                    errorLog.error("Commit offset after "+i+" times retry "+ExceptionUtils.getFullStackTrace(e));
+                }
+            }
+        }
 
         private void purge(List<String> topics){
             long now = System.currentTimeMillis();
