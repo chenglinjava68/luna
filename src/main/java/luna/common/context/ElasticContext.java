@@ -10,6 +10,7 @@ public class ElasticContext {
     private boolean compress;
     private String clusterName;
     private List<String> hosts;
+    private int bulkBorder;
 
     public boolean isSniff() {
         return sniff;
@@ -41,6 +42,14 @@ public class ElasticContext {
 
     public void setHosts(List<String> hosts) {
         this.hosts = hosts;
+    }
+
+    public int getBulkBorder() {
+        return bulkBorder;
+    }
+
+    public void setBulkBorder(int bulkBorder) {
+        this.bulkBorder = bulkBorder;
     }
 
     public String toString(){

@@ -30,43 +30,37 @@ public class ElasticApplier extends AbstractLifeCycle implements Applier{
     }
 
     public void applyBatch(final List<Record> records){
-        BulkRequestBuilder bulkRequest=getBulkRequest();
-        for(Record record:records){
-//            System.out.println("******************"+record.getOperateType());
-//            switch (record.getOperateType()){
-//                case I:
-//                    prepareIndex(record,bulkRequest);
-//                case U:
-//                    prepareUpdate(record,bulkRequest);
-//                case D:
-//                    prepareDelete(record,bulkRequest);
-//                default:
-//                    throw new LunaException("Unknown opType " + record.getOperateType());
-//            }
-            if(record.getOperateType()==OperateType.I){
-                prepareIndex(record,bulkRequest);
-            }else if(record.getOperateType()==OperateType.U){
-                prepareUpdate(record,bulkRequest);
-            }else if(record.getOperateType()==OperateType.D){
-                prepareDelete(record,bulkRequest);
-            }else {
-                throw new LunaException("Unknown opType "+record.getOperateType());
-            }
-        }
 
-        emitBulk(bulkRequest);
+        if(records.size()<elasticContext.getBulkBorder()){
+            for(Record record:records){
+                applyOneByOne(record);
+            }
+        }else{
+            BulkRequestBuilder bulkRequest=getBulkRequest();
+            for(Record record:records){
+                if(record.getOperateType()==OperateType.I){
+                    prepareIndex(record,bulkRequest);
+                }else if(record.getOperateType()==OperateType.U){
+                    prepareUpdate(record,bulkRequest);
+                }else if(record.getOperateType()==OperateType.D){
+                    prepareDelete(record,bulkRequest);
+                }else {
+                    throw new LunaException("Unknown opType "+record.getOperateType());
+                }
+            }
+            emitBulk(bulkRequest);
+        }
     }
 
     public void applyOneByOne(Record record){
-        switch (record.getOperateType()){
-            case I:
-                index(record);
-            case U:
-                update(record);
-            case D:
-                delete(record);
-            case UNKNOWN:
-                throw new LunaException("Unknown opType " + record.getOperateType());
+        if(record.getOperateType()==OperateType.I){
+            index(record);
+        }else if(record.getOperateType()==OperateType.U){
+            update(record);
+        }else if(record.getOperateType()==OperateType.D){
+            delete(record);
+        }else {
+            throw new LunaException("Unknown opType " + record.getOperateType());
         }
     }
 

@@ -86,12 +86,15 @@ public class Bootstrap extends AbstractLifeCycle{
         boolean sniff=(boolean)elasticConfigs.get("sniff");
         boolean compress=(boolean)elasticConfigs.get("compress");
         String clusterName=(String)elasticConfigs.get("cluster.name");
+        int bulkBorder = (int)elasticConfigs.get("bulk.border");
         List<String> hosts=(List<String>)elasticConfigs.get("hosts");
+
 
         elasticContext.setClusterName(clusterName);
         elasticContext.setCompress(compress);
         elasticContext.setHosts(hosts);
         elasticContext.setSniff(sniff);
+        elasticContext.setBulkBorder(bulkBorder);
         logger.info("Elasticsearch context has inited!");
     }
 
