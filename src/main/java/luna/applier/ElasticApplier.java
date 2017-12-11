@@ -38,14 +38,18 @@ public class ElasticApplier extends AbstractLifeCycle implements Applier{
         }else{
             BulkRequestBuilder bulkRequest=getBulkRequest();
             for(Record record:records){
-                if(record.getOperateType()==OperateType.I){
-                    prepareIndex(record,bulkRequest);
-                }else if(record.getOperateType()==OperateType.U){
-                    prepareUpdate(record,bulkRequest);
-                }else if(record.getOperateType()==OperateType.D){
-                    prepareDelete(record,bulkRequest);
-                }else {
-                    throw new LunaException("Unknown opType "+record.getOperateType());
+                switch (record.getOperateType()){
+                    case I:
+                        prepareIndex(record,bulkRequest);
+                        break;
+                    case U:
+                        prepareUpdate(record,bulkRequest);
+                        break;
+                    case D:
+                        prepareDelete(record,bulkRequest);
+                        break;
+                    case UNKNOWN:
+                        throw new LunaException("Unknown opType "+record.getOperateType());
                 }
             }
             emitBulk(bulkRequest);
@@ -53,14 +57,18 @@ public class ElasticApplier extends AbstractLifeCycle implements Applier{
     }
 
     public void applyOneByOne(Record record){
-        if(record.getOperateType()==OperateType.I){
-            index(record);
-        }else if(record.getOperateType()==OperateType.U){
-            update(record);
-        }else if(record.getOperateType()==OperateType.D){
-            delete(record);
-        }else {
-            throw new LunaException("Unknown opType " + record.getOperateType());
+        switch (record.getOperateType()){
+            case I:
+                index(record);
+                break;
+            case U:
+                update(record);
+                break;
+            case D:
+                delete(record);
+                break;
+            case UNKNOWN:
+                throw new LunaException("Unknown opType " + record.getOperateType());
         }
     }
 
