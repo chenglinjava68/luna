@@ -1,8 +1,6 @@
 package luna;
 
-import luna.config.ConfigHelp;
-import org.elasticsearch.action.delete.DeleteResponse;
-import org.elasticsearch.action.index.IndexResponse;
+import luna.util.ConfigUtil;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
@@ -19,7 +17,7 @@ public class EsReponseFailTest {
         Map outputConfig;
         Map configs=null;
         try {
-            configs= ConfigHelp.parse("conf/example.yml");
+            configs= ConfigUtil.parse("conf/example.yml");
         } catch (Exception e) {
             e.printStackTrace();
         }

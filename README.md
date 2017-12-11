@@ -154,10 +154,6 @@ I think you should have your elasticsearch cluster. If not, learn and make one.
  You can modify it by self to test. Or you can use script to modify
  - conf/example.yml
  Change to your kafka server host and elasticsearch host and change some other config
- 
-## ES Mapping
-    python conf/map.py
-    java -cp target/luna-0.0.1.jar luna.app.AdminApp
 
 ## Start luna
     nohup java -cp target/luna-0.0.1.jar luna.app.App &

@@ -1,8 +1,6 @@
 package luna.app;
 
-import java.util.Map;
-
-import luna.input.KafkaInput;
+import luna.common.Bootstrap;
 
 /**
  * 
@@ -18,7 +16,12 @@ import luna.input.KafkaInput;
  */
 public class App {
 	public static void main( String[] args ){
-		KafkaInput kafka =new KafkaInput("conf/example.yml");
-		kafka.excute();
+        Bootstrap bootstrap = new Bootstrap("conf/example.yml");
+        bootstrap.start();
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                bootstrap.stop();
+            }
+        });
 	}
 }
