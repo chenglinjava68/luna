@@ -13,7 +13,7 @@
 			</Policies>
 			<DefaultRolloverStrategy max="20" />
 		</RollingFile>
-		<RollingFile name="Kafka" fileName="/data/luna/logs/kafka/kafka.log"
+		<RollingFile name="Luna" fileName="/data/luna/logs/kafka/kafka.log"
 			filePattern="/data/luna/logs/kafka/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
 			<Policies>
@@ -50,9 +50,9 @@
 			<appender-ref ref="Console" />
 			<AppenderRef ref="ES" />
 		</Logger>
-		<Logger name="kafka" level="trace" additivity="false">
+		<Logger name="luna" level="trace" additivity="false">
 			<appender-ref ref="Console" />
-			<AppenderRef ref="Kafka" />
+			<AppenderRef ref="Luna" />
 		</Logger>
         <Logger name="ding" level="trace" additivity="false">
             <appender-ref ref="Console" />
