@@ -33,25 +33,25 @@ public class ElasticApplier extends AbstractLifeCycle implements Applier{
         BulkRequestBuilder bulkRequest=getBulkRequest();
         for(Record record:records){
 //            System.out.println("******************"+record.getOperateType());
-            switch (record.getOperateType()){
-                case I:
-                    prepareIndex(record,bulkRequest);
-                case U:
-                    prepareUpdate(record,bulkRequest);
-                case D:
-                    prepareDelete(record,bulkRequest);
-                default:
-                    throw new LunaException("Unknown opType " + record.getOperateType());
-            }
-//            if(record.getOperateType()==OperateType.I){
-//                prepareIndex(record,bulkRequest);
-//            }else if(record.getOperateType()==OperateType.U){
-//                prepareUpdate(record,bulkRequest);
-//            }else if(record.getOperateType()==OperateType.D){
-//                prepareDelete(record,bulkRequest);
-//            }else {
-//                throw new LunaException("**********"+record.getOperateType());
+//            switch (record.getOperateType()){
+//                case I:
+//                    prepareIndex(record,bulkRequest);
+//                case U:
+//                    prepareUpdate(record,bulkRequest);
+//                case D:
+//                    prepareDelete(record,bulkRequest);
+//                default:
+//                    throw new LunaException("Unknown opType " + record.getOperateType());
 //            }
+            if(record.getOperateType()==OperateType.I){
+                prepareIndex(record,bulkRequest);
+            }else if(record.getOperateType()==OperateType.U){
+                prepareUpdate(record,bulkRequest);
+            }else if(record.getOperateType()==OperateType.D){
+                prepareDelete(record,bulkRequest);
+            }else {
+                throw new LunaException("Unknown opType "+record.getOperateType());
+            }
         }
 
         emitBulk(bulkRequest);
