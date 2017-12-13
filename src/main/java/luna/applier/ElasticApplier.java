@@ -2,7 +2,6 @@ package luna.applier;
 
 import luna.common.AbstractLifeCycle;
 import luna.common.context.ElasticContext;
-import luna.common.model.OperateType;
 import luna.common.model.Record;
 import luna.exception.LunaException;
 import luna.util.DingDingMsgUtil;

@@ -49,15 +49,15 @@ public class DingDingMsgUtil {
     }
 
     public static void sendMsg(String msg){
-//        msg = (new Date()).toString()+" LUNA ERROR " +msg;
-//        log.info("MESSAGE: "+msg);
-//        HttpEntity entity = new StringEntity(jsonMsg(msg),charset);
-//        try {
-//            String responseString = httpClientUtil.post(url, header, null, entity);
-//            log.info(responseString);
-//        }catch(Exception e){
-//            e.printStackTrace();
-//        }
+        msg = (new Date()).toString()+" LUNA ERROR " +msg;
+        log.info("MESSAGE: "+msg);
+        HttpEntity entity = new StringEntity(jsonMsg(msg),charset);
+        try {
+            String responseString = httpClientUtil.post(url, header, null, entity);
+            log.info(responseString);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private static String jsonMsg(String msg){
