@@ -147,28 +147,28 @@ I think you should have your elasticsearch cluster. If not, learn and make one.
     mvn package # or not
 
 ## Config 
- - conf/example.yml (Don't modify the indentation)
+ #conf/example.yml (Don't modify the indentation)
  
- NewKafka:
-  topics:
-    - table1_schemal1
-    - table2_schemal2
-  bootstrap.servers: xx.xx.xx.xx:9092,xx.xx.xx.xx:9092,xx.xx.xx.xx:9092
-  group.id: test_group  #modify it
-  max.fetch.byte: 1048576
-  max.poll.records: 10000
-  retry.times: 3
-  retry.interval: 1000 #ms 
-  purge.interval: 1 #minute/ the interval of restarting the dead consumer-thread  
+     NewKafka:
+      topics:
+        - table1_schemal1
+        - table2_schemal2
+     bootstrap.servers: xx.xx.xx.xx:9092,xx.xx.xx.xx:9092,xx.xx.xx.xx:9092
+     group.id: test_group  #modify it
+     max.fetch.byte: 1048576
+     max.poll.records: 10000
+     retry.times: 3
+     retry.interval: 1000 #ms 
+     purge.interval: 1 #minute/ the interval of restarting the dead consumer-thread  
 
-Elasticsearch:
-  hosts:
-    - xx.xx.xx.xx
-    - xx.xx.xx.xx
-  sniff: true
-  compress: false
-  cluster.name: application # default elasticsearch
-  bulk.border: 10 # which number to use es bulk 
+    Elasticsearch:
+      hosts:
+        - xx.xx.xx.xx
+        - xx.xx.xx.xx
+      sniff: true
+      compress: false
+      cluster.name: application # default elasticsearch
+      bulk.border: 10 # which number to use es bulk 
 
 ## Start luna
     nohup java -cp target/luna-0.0.1.jar luna.app.App >/etc/null 2>&1 &
