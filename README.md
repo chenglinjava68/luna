@@ -1,3 +1,5 @@
+# 介绍
+
 一种基于Binlog实现的MySQL到Elasticsearch增量同步方案：通过Maxwell从Binlog解析mysql增量消息（DML: insert update delete），以Kafka作为消息队列中间件，将数据增量同步到ES的方案。对比定时脚本作业有以下几个优点：
 
  - 低延时性
@@ -9,9 +11,14 @@
  - 峰值处理能力
 峰值并不是工作的常态，可能大多数情况下mysql有更新就可以及时的消费掉，当峰值到来时，应当感知到并且提高消费能力，如果能力依然不够，Kafka提供了消息积压的能力（理论上Kafka几乎可以无限积压消息，虽然可能很少这么做），峰值过后可以尽快消化掉积压。
 
+# 架构
+![kafka之后的架构]( ./luna.png)
+
 # Maxwell
-    http://maxwells-daemon.io/
-    https://github.com/zendesk/maxwell
+
+QuickStart : [http://maxwells-daemon.io/]  
+Github : [https://github.com/zendesk/maxwell]
+
 ## Download
 
     curl -sLo - https://github.com/zendesk/maxwell/releases/download/v1.10.6/maxwell-1.10.6.tar.gz | tar zxvf -
@@ -65,8 +72,9 @@ Copy config.properties.example to config.properties and modify the following pro
     nohup bin/maxwell --user='maxwell' --password='XXXXXX' --host='127.0.0.1' >/etc/null 2>&1 &
     
 # Kafka
-    https://kafka.apache.org/quickstart
-    https://github.com/apache/kafka
+
+Quickstart:[https://kafka.apache.org/quickstart]  
+Github:[https://github.com/apache/kafka]
 
 ## download
 
@@ -142,11 +150,13 @@ I think you should have your elasticsearch cluster. If not, learn and make one.
 # luna
 
 ## Download And Install
+
     git clone https://github.com/sanguinar/luna
     cd luna
     mvn package # or not
 
 ## Config 
+
  #conf/example.yml (Don't modify the indentation)
  
      NewKafka:
@@ -171,7 +181,17 @@ I think you should have your elasticsearch cluster. If not, learn and make one.
       bulk.border: 10 # which number to use es bulk 
 
 ## Start luna
-    nohup java -cp target/luna-0.0.1.jar luna.app.App >/etc/null 2>&1 &
+
+    bin/luna-es-start.sh conf/example.yml
+    or
+    bin/luna-es-start.sh -daemon conf/example
 
 ## Log
-   You can find log file in /data/luna
+
+You can find log file in /data/luna
+
+--------------------------------------------------------
+[http://maxwells-daemon.io/]:http://maxwells-daemon.io/ "QuickStart"
+[https://github.com/zendesk/maxwell]:https://github.com/zendesk/maxwell "Github"
+[https://kafka.apache.org/quickstart]:https://kafka.apache.org/quickstart "QuickStart"
+[https://github.com/apache/kafka]:https://github.com/apache/kafka "Github"
