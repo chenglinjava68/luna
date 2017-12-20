@@ -157,7 +157,7 @@ I think you should have your elasticsearch cluster. If not, learn and make one.
 
 ## Config 
 
- #conf/example.yml (Don't modify the indentation)
+ ### conf/example.yml (Don't modify the indentation)
  
      NewKafka:
       topics:
@@ -179,6 +179,23 @@ I think you should have your elasticsearch cluster. If not, learn and make one.
       compress: false
       cluster.name: application # default elasticsearch
       bulk.border: 10 # which number to use es bulk 
+      
+### kafka_client_jass.conf 
+
+Kafka 使用SASL_PLAINTEXT权限模块：[Authentication using SASL]
+
+    KafkaClient {
+      org.apache.kafka.common.security.plain.PlainLoginModule required
+      username="user"
+      password="password";
+    };
+
+### DingDing.yml (如果没有，注释掉src/main/java/luna/util/DingDingMsgUtil.java 的sendMsg方法的内容)
+
+    url: https://oapi.dingtalk.com/robot/send?access_token=xxxxx
+    isAtAll: false
+    phonenumbers:
+      - "xxxxxxxxxxx" 
 
 ## Start luna
 
@@ -195,3 +212,4 @@ You can find log file in /data/luna
 [https://github.com/zendesk/maxwell]:https://github.com/zendesk/maxwell "Github"
 [https://kafka.apache.org/quickstart]:https://kafka.apache.org/quickstart "QuickStart"
 [https://github.com/apache/kafka]:https://github.com/apache/kafka "Github"
+[Authentication using SASL]:https://docs.confluent.io/current/kafka/sasl.html "Authentication using SASL"
