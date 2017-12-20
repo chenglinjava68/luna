@@ -73,8 +73,8 @@ Copy config.properties.example to config.properties and modify the following pro
     
 # Kafka
 
-Quickstart:[https://kafka.apache.org/quickstart]  
-Github:[https://github.com/apache/kafka]
+QuickStart : [https://kafka.apache.org/quickstart]  
+Github : [https://github.com/apache/kafka]
 
 ## download
 
