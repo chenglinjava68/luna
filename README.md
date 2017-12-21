@@ -75,7 +75,7 @@ Github : [https://github.com/apache/kafka]
 
 ## download
 
-    It's better to download kafka_2.12-0.11.0.0 and newer version. Unzip and move to work dir
+It's better to download kafka_2.12-0.11.0.0 and newer version. Unzip and move to work dir
 
 ## zookeeper.properties
 
