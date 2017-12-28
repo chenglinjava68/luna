@@ -62,6 +62,7 @@ public class Bootstrap extends AbstractLifeCycle{
         int retryTimes =(int)inputConfigs.get("retry.times");
         int retryInterval = (int)inputConfigs.get("retry.interval");
         int purgeInterval = (int)inputConfigs.get("purge.interval");
+        boolean saslMode = (boolean) inputConfigs.get("sasl.mode");
 
         Properties props = new Properties();
         props.put("bootstrap.servers", inputConfigs.get("bootstrap.servers"));
@@ -79,6 +80,7 @@ public class Bootstrap extends AbstractLifeCycle{
         kafkaContext.setProps(props);
         kafkaContext.setTopics(topics);
         kafkaContext.setPurgeInterval(purgeInterval);
+        kafkaContext.setSaslMode(saslMode);
         logger.info("KafkaContext has inited!");
     }
 

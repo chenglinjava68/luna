@@ -15,6 +15,7 @@ public class KafkaContext implements Serializable {
     private int             retryTimes;
     private int             retryInterval;
     private int             purgeInterval;
+    private boolean         saslMode;
 
     public List<String> getTopics() {
         return topics;
@@ -54,6 +55,14 @@ public class KafkaContext implements Serializable {
 
     public void setPurgeInterval(int purgeInterval) {
         this.purgeInterval = purgeInterval;
+    }
+
+    public boolean isSaslMode() {
+        return saslMode;
+    }
+
+    public void setSaslMode(boolean saslMode) {
+        this.saslMode = saslMode;
     }
 
     public String toString(){
