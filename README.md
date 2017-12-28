@@ -52,17 +52,14 @@ Copy config.properties.example to config.properties and modify the following pro
     output_ddl=false
     output_nulls=false
     kafka.bootstrap.servers=k_host0:9092,k_host1:9092,k_host2:9092,k_host3:9092,k_host4:9092
-    ### One table in one topic
-    kafka_topic=%{database}_%{table}
+    kafka_topic=%{database}_%{table} # One table in one topic
     kafka.batch.size=16384
     kafka.compression.type=snappy
     kafka.metadata.fetch.timeout.ms=5000
     kafka.retries=5
-    ### default 1 get and ack;0 send and ack;all or -1 replica in ISR get ack
-    kafka.acks=1
+    kafka.acks=1 # default 1 get and ack;0 send and ack;all or -1 replica in ISR get ack
     kafka.request.timeout.ms=10000
     kafka.linger.ms=0
-    ### One table in one partition
     producer_partition_by=table # [database, table, primary_key, column]
     include_dbs=db1,db2
     include_tables=table1,table2,table3
@@ -78,7 +75,7 @@ Github : [https://github.com/apache/kafka]
 
 ## download
 
-    It's better to download kafka_2.12-0.11.0.0 and newer version. Unzip and move to work dir
+It's better to download kafka_2.12-0.11.0.0 and newer version. Unzip and move to work dir
 
 ## zookeeper.properties
 
@@ -107,10 +104,8 @@ Modify every broker server.properties
     offsets.topic.replication.factor=3
     transaction.state.log.replication.factor=3
     transaction.state.log.min.isr=3
-    #z_host0 is your zookeeper host
-    zookeeper.connect=z_host0:2181,z_host1:2181,z_host2:2181,z_host3:2181
-    ### Avoid purgatory OOME 
-    fetch.purgatory.purge.interval.requests: 100
+    zookeeper.connect=z_host0:2181,z_host1:2181,z_host2:2181,z_host3:2181 #z_host0 is your zookeeper host
+    fetch.purgatory.purge.interval.requests: 100 # Avoid purgatory OOME 
     producer.purgatory.purge.interval.requests: 100
 
 ## Some work
